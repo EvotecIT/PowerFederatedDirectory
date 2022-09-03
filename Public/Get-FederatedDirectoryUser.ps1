@@ -1,15 +1,79 @@
 ﻿function Get-FederatedDirectoryUser {
+    [alias('Get-FDUser')]
     [cmdletbinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
         [int] $MaxResults,
         [int] $StartIndex = 1,
         [int] $Count = 50,
-
         [string] $Filter,
-        [string] $SortBy,
-        [string] $SortOrder,
-        [Alias('Property')][string[]] $Attributes
+        [ValidateSet(
+            'id',
+            'externalId',
+            'userName',
+            'name.givenName',
+            'name.familyName',
+            'displayName',
+            'nickName',
+            'profileUrl',
+            'title',
+            'userType',
+            'emails',
+            'phoneNumbers',
+            'addresses',
+            'preferredLanguage',
+            'locale',
+            'timezone',
+            'active',
+            'groups',
+            'roles',
+            'meta',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:description',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos'
+        )][string] $SortBy,
+        [ValidateSet('ascending', 'descending')][string] $SortOrder,
+        [Alias('Property')]
+        [ValidateSet(
+            'id',
+            'externalId',
+            'userName',
+            'name.givenName',
+            'name.familyName',
+            'displayName',
+            'nickName',
+            'profileUrl',
+            'title',
+            'userType',
+            'emails',
+            'phoneNumbers',
+            'addresses',
+            'preferredLanguage',
+            'locale',
+            'timezone',
+            'active',
+            'groups',
+            'roles',
+            'meta',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department',
+            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:description',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId',
+            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos'
+        )]
+        [string[]] $Attributes
     )
 
     if (-not $Authorization) {
