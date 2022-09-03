@@ -1,0 +1,131 @@
+﻿{
+    "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User",
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+    ],
+    "id": "9aa00-e97a-11e7-9faf-236ea7c81614",
+    "externalId": "701984",
+    "userName": "bjensen@example.com",
+    "name": {
+        "familyName": "Jensen",
+        "givenName": "Barbara"
+    },
+    "displayName": "Babs Jensen",
+    "nickName": "Fruit Loop",
+    "profileUrl": "https://profile.example.com/bjensen",
+    "emails": [
+        {
+            "value": "bjensen@example.com",
+            "type": "work",
+            "primary": true
+        },
+        {
+            "value": "babs@jensen.org",
+            "type": "home"
+        }
+    ],
+    "addresses": [
+        {
+            "streetAddress": "100 Universal City Plaza",
+            "locality": "Hollywood",
+            "region": "CA",
+            "postalCode": "91608",
+            "country": "USA",
+            "type": "work",
+            "primary": true
+        },
+        {
+            "type": "home",
+            "streetAddress": "7632 cherry st",
+            "postalCode": "coral springs",
+            "locality": "nevada",
+            "region": "85702",
+            "country": "Spain"
+        }
+    ],
+    "phoneNumbers": [
+        {
+            "type": "work",
+            "primary": true,
+            "value": "0061 3 9297 1600"
+        },
+        {
+            "type": "home",
+            "value": "(345)-767-6101"
+        },
+        {
+            "type": "mobile",
+            "value": "(068)-597-6483"
+        }
+    ],
+    "photos": [
+        {
+            "value": "https://cdn.federated.directory/images/users/demo/w1.jpg",
+            "type": "photo"
+        },
+        {
+            "value": "https://cdn.federated.directory/images/users/demo/thumb/thumb_w1.jpg",
+            "type": "thumbnail"
+        }
+    ],
+    "userType": "Employee",
+    "title": "Tour Guide",
+    "active": true,
+    "groups": [
+        {
+            "value": "7e9f14a0-fe8d-11ea-b3f4-d179f9eb8415",
+            "display": "Tour Guides",
+            "logos": [
+                {
+                    "value": "https://cdn.federated.directory/images/groups/defaultgroup_icon_dskgidIYUDFYGUIKJugkj.svg",
+                    "type": "logo"
+                },
+                {
+                    "value": "https://cdn.federated.directory/images/groups/thumb/defaultgroup_icon_dskgidIYUDFYGUIKJugkj.svg",
+                    "type": "thumbnail"
+                }
+            ],
+            "owner": true,
+            "assignedByFilter": false
+        }
+    ],
+    "roles": [
+        {
+            "value": "user",
+            "display": "user"
+        }
+    ],
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+        "organization": "Cafe Expresso",
+        "employeeNumber": "701984",
+        "costCenter": "Hub04387",
+        "division": "Getting Started",
+        "department": "Bulk",
+        "manager": {
+            "displayName": "Paul Adam",
+            "value": "d09420a0-e97a-11e7-9faf-236ea7c81614",
+            "$ref": "../v2/Users/d09420a0-e97a-11e7-9faf-236ea7c81614"
+        }
+    },
+    "urn:ietf:params:scim:schemas:extension:fd:2.0:User": {
+        "description": "Potest manducare glacies crepito formidolose",
+        "companyId": "8dc57fd0-d2af-11e7-9840-e757c2c4aa66",
+        "companyLogos": [
+            {
+                "value": "https://dev.federated.directory/uploads/8dc57fd0-d2af-11e7-9840-e757c2c4aa66/8dc57fd0-d2af-11e7-9840-e757c2c4aa66_ow8fl.png",
+                "type": "logo"
+            },
+            {
+                "value": "https://dev.federated.directory/uploads/8dc57fd0-d2af-11e7-9840-e757c2c4aa66/thumb/8dc57fd0-d2af-11e7-9840-e757c2c4aa66_ow8fl.png",
+                "type": "thumbnail"
+            }
+        ],
+        "directoryId": "8dc57fd4-d2af-11e7-9840-e757c2c4aa66"
+    },
+    "meta": {
+        "resourceType": "User",
+        "location": "https://api.federated.directory/v2/Users/d0b9aa00-e97a-11e7-9faf-236ea7c81614",
+        "created": "2017-12-25T13:52:15.000Z",
+        "lastModified": "2018-03-25T11:28:24.000Z"
+    }
+}
