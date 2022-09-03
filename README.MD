@@ -29,6 +29,44 @@ $JWT = New-JWT -PrivateKey $Key -Algorithm RS256 -Payload $Payload
 $JWT
 ```
 
+#### Attributes
+
+The attributes, filter and sortBy parameters can be configured by the below list of attributes.
+
+| Attribute                                                                 | Filter operator         |
+| ------------------------------------------------------------------------- | ----------------------- |
+| id                                                                        | eq                      |
+| externalId                                                                | co (admin only)         |
+| userName                                                                  | co (admin only)         |
+| name.givenName                                                            |                         |
+| name.familyName                                                           |                         |
+| displayName                                                               | co                      |
+| nickName                                                                  |                         |
+| profileUrl                                                                |                         |
+| title                                                                     | co                      |
+| userType                                                                  |                         |
+| emails                                                                    |                         |
+| phoneNumbers                                                              |                         |
+| addresses                                                                 |                         |
+| preferredLanguage                                                         |                         |
+| locale                                                                    |                         |
+| timezone                                                                  |                         |
+| active                                                                    |                         |
+| groups                                                                    | eq (group members only) |
+| roles                                                                     |                         |
+| meta                                                                      |                         |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization   |                         |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber |                         |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter     |                         |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division       | co                      |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department     | co                      |
+| urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager        | eq (use manager.value)  |
+| urn:ietf:params:scim:schemas:extension:fd:2.0:User:description            |                         |
+| urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId            | eq                      |
+| urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId              | eq                      |
+| urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos           |                         |
+
+
 ### Resources
 
 - https://help.federated.directory/
