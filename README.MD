@@ -7,7 +7,7 @@
 
 ```powershell
 choco install openssl.light
-``
+```
 
 
 2. Install PowerShell Module called `jwtPS`
