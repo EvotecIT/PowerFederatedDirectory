@@ -1,4 +1,5 @@
 ﻿function Connect-FederatedDirectory {
+    [alias('Connect-FD')]
     [cmdletbinding(DefaultParameterSetName = 'ClearText')]
     param(
         [Parameter(Mandatory, ParameterSetName = 'ClearText')]
