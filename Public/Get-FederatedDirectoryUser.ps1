@@ -11,8 +11,8 @@
             'id',
             'externalId',
             'userName',
-            'name.givenName',
-            'name.familyName',
+            'givenName',
+            'familyName',
             'displayName',
             'nickName',
             'profileUrl',
@@ -28,25 +28,29 @@
             'groups',
             'roles',
             'meta',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:description',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos'
-        )][string] $SortBy,
+            'organization',
+            'employeeNumber',
+            'costCenter',
+            'division',
+            'department',
+            'manager',
+            'description',
+            'directoryId',
+            'companyId',
+            'companyLogos',
+            'custom01',
+            'custom02',
+            'custom03'
+        )]
+        [string] $SortBy,
         [ValidateSet('ascending', 'descending')][string] $SortOrder,
         [Alias('Property')]
         [ValidateSet(
             'id',
             'externalId',
             'userName',
-            'name.givenName',
-            'name.familyName',
+            'givenName',
+            'familyName',
             'displayName',
             'nickName',
             'profileUrl',
@@ -62,19 +66,67 @@
             'groups',
             'roles',
             'meta',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department',
-            'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:description',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId',
-            'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos'
+            'organization',
+            'employeeNumber',
+            'costCenter',
+            'division',
+            'department',
+            'manager',
+            'description',
+            'directoryId',
+            'companyId',
+            'companyLogos',
+            'custom01',
+            'custom02',
+            'custom03'
         )]
         [string[]] $Attributes
     )
+
+    $ConvertAttributes = @{
+        'id'                = 'id'
+        'externalId'        = 'externalId'
+        'userName'          = 'userName'
+        'givenName'         = 'name.givenName'
+        'familyName'        = 'name.familyName'
+        'displayName'       = 'displayName'
+        'nickName'          = 'nickName'
+        'profileUrl'        = 'profileUrl'
+        'title'             = 'title'
+        'userType'          = 'userType'
+        'emails'            = 'emails'
+        'phoneNumbers'      = 'phoneNumbers'
+        'addresses'         = 'addresses'
+        'preferredLanguage' = 'preferredLanguage'
+        'locale'            = 'locale'
+        'timezone'          = 'timezone'
+        'active'            = 'active'
+        'groups'            = 'groups'
+        'roles'             = 'roles'
+        'meta'              = 'meta'
+        'organization'      = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization'
+        'employeeNumber'    = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber'
+        'costCenter'        = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter'
+        'division'          = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division'
+        'department'        = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department'
+        'manager'           = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager'
+        'description'       = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:description'
+        'directoryId'       = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId'
+        'companyId'         = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId'
+        'companyLogos'      = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos'
+        'custom01'          = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom01'
+        'custom02'          = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom02'
+        'custom03'          = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom03'
+    }
+
+    $AttributesConverted = foreach ($Attribute in $Attributes) {
+        if ($ConvertAttributes[$Attribute]) {
+            $ConvertAttributes[$Attribute]
+        }
+    }
+    if ($SortBy) {
+        $SortByConverted = $ConvertAttributes[$SortBy]
+    }
 
     if (-not $Authorization) {
         if ($Script:AuthorizationCacheFD) {
@@ -96,9 +148,9 @@
             count      = if ($Count) { $Count } else { $null }
             startIndex = if ($StartIndex) { $StartIndex } else { $null }
             filter     = $filter
-            sortBy     = $SortBy
+            sortBy     = $SortByConverted
             sortOrder  = $SortOrder
-            attributes = $Attributes -join ","
+            attributes = $AttributesConverted -join ","
         }
         # lets remove empty values to remove whatever user hasn't requested
         Remove-EmptyValue -Hashtable $QueryParameter
@@ -121,7 +173,7 @@
         if ($BatchObjects.Resources) {
             Write-Verbose -Message "Get-FederatedDirectoryUser - Got $($BatchObjects.Resources.Count) users (StartIndex: $StartIndex, Count: $Count). Starting to process them."
 
-            if ($BatchObjects.Resources.Count -ge $MaxResults) {
+            if ($MaxResults -gt 0 -and $BatchObjects.Resources.Count -ge $MaxResults) {
                 # return users if amount of users available is more than we wanted
                 $BatchObjects.Resources | Select-Object -First $MaxResults
                 $LimitReached = $true
@@ -153,6 +205,50 @@
             Get-FederatedDirectoryUser @getFederatedDirectoryUserSplat
         }
     } else {
-        Write-Warning -Message 'No authorization found. Please make sure to use Connect-FederatedDirectory first.'
+        Write-Warning -Message 'Get-FederatedDirectoryUser - No authorization found. Please make sure to use Connect-FederatedDirectory first.'
     }
 }
+
+# $Script:AttributesList = @(
+#     'id',
+#     'externalId',
+#     'userName',
+#     'givenName',
+#     'familyName',
+#     'displayName',
+#     'nickName',
+#     'profileUrl',
+#     'title',
+#     'userType',
+#     'emails',
+#     'phoneNumbers',
+#     'addresses',
+#     'preferredLanguage',
+#     'locale',
+#     'timezone',
+#     'active',
+#     'groups',
+#     'roles',
+#     'meta',
+#     'organization',
+#     'employeeNumber',
+#     'costCenter',
+#     'division',
+#     'department',
+#     'manager',
+#     'description',
+#     'directoryId',
+#     'companyId',
+#     'companyLogos'
+#     'custom01',
+#     'custom02',
+#     'custom03'
+# )
+
+# $Script:ScriptBlockAttributes = {
+#     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+#     $Script:AttributesList | Where-Object { $_ -like "*$wordToComplete*" }
+# }
+
+# Register-ArgumentCompleter -CommandName Get-FederatedDirectoryUser -ParameterName Attributes -ScriptBlock $Script:ScriptBlockAttributes
+# Register-ArgumentCompleter -CommandName Get-FederatedDirectoryUser -ParameterName SortBy -ScriptBlock $Script:ScriptBlockAttributes
