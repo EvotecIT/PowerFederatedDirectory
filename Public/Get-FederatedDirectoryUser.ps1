@@ -3,6 +3,9 @@
     [cmdletbinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
+        [string] $Id,
+        [string] $UserName,
+        [string] $DirectoryID,
         [int] $MaxResults,
         [int] $StartIndex = 1,
         [int] $Count = 50,
@@ -142,12 +145,20 @@
         }
     }
     if ($Authorization) {
-        $BaseUri = 'https://api.federated.directory/v2/Users/'
+        if ($ID) {
+            $BaseUri = "https://api.federated.directory/v2/Users/$ID"
+        } else {
+            $BaseUri = "https://api.federated.directory/v2/Users"
+        }
         # Lets build up query
         $QueryParameter = [ordered] @{
-            count      = if ($Count) { $Count } else { $null }
-            startIndex = if ($StartIndex) { $StartIndex } else { $null }
-            filter     = $filter
+            #count      = if ($Count) { $Count } else { $null }
+            #startIndex = if ($StartIndex) { $StartIndex } else { $null }
+            filter     = if ($UserName) {
+                "userName co $UserName"
+            } else {
+                $Filter
+            }
             sortBy     = $SortByConverted
             sortOrder  = $SortOrder
             attributes = $AttributesConverted -join ","
@@ -162,13 +173,24 @@
         $Headers = @{
             'Content-Type'  = 'application/json'
             'Authorization' = $Authorization.Authorization
+            'directoryID'   = $DirectoryID
         }
+        Remove-EmptyValue -Hashtable $Headers
         Try {
             $BatchObjects = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers -ErrorAction Stop #{id}?attributes={attributes}'
         } catch {
-            $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
-            Write-Warning -Message "Get-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
-            return
+            if ($PSBoundParameters.ErrorAction -eq 'Stop') {
+                throw
+            } else {
+                $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
+                if ($ErrorDetails.Detail -like '*already exists*directory*') {
+                    Write-Warning -Message "Get-FederatedDirectoryUser - $($ErrorDetails.Detail) [UserName: $UserName / ID: $ID]"
+                    return
+                } else {
+                    Write-Warning -Message "Get-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                    return
+                }
+            }
         }
         if ($BatchObjects.Resources) {
             Write-Verbose -Message "Get-FederatedDirectoryUser - Got $($BatchObjects.Resources.Count) users (StartIndex: $StartIndex, Count: $Count). Starting to process them."
@@ -200,6 +222,7 @@
                 SortBy        = $SortBy
                 SortOrder     = $SortOrder
                 Attributes    = $Attributes -join ","
+                DirectoryID   = $DirectoryID
             }
             Remove-EmptyValue -Hashtable $getFederatedDirectoryUserSplat
             Get-FederatedDirectoryUser @getFederatedDirectoryUserSplat
