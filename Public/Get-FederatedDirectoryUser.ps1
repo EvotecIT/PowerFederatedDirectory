@@ -152,9 +152,10 @@
         }
         # Lets build up query
         $QueryParameter = [ordered] @{
-            #count      = if ($Count) { $Count } else { $null }
-            #startIndex = if ($StartIndex) { $StartIndex } else { $null }
+            count      = if ($Count) { $Count } else { $null }
+            startIndex = if ($StartIndex) { $StartIndex } else { $null }
             filter     = if ($UserName) {
+                # keep in mind regardless of used operator it will always revert back to co as per API (weird)
                 "userName co $UserName"
             } else {
                 $Filter

@@ -41,13 +41,16 @@
         [string] $ManagerUserName,
         [string] $ManagerReference,
         [string] $ManagerDisplayName,
-        [bool] $Active,
+        [switch] $Active,
         [string] $Department,
         [string] $EmployeeNumber,
         [string] $CostCenter,
         [string] $Division,
         [string] $Description,
-        [ValidateSet('admin', 'user')][string] $Roles = 'user',
+        [ValidateSet('admin', 'user')][string] $Role = 'user',
+        [alias('CustomAttribute01')][string] $Custom01,
+        [alias('CustomAttribute02')][string] $Custom02,
+        [alias('CustomAttribute03')][string] $Custom03,
         [switch] $Suppress
     )
 
@@ -163,11 +166,11 @@
             "timeZone"                                                   = $TimeZone
             "userType"                                                   = $UserType
             "title"                                                      = $Title
-            "active"                                                     = $Active # true or false
+            "active"                                                     = if ($PSBoundParameters.Keys -contains ('Active')) { $Active.IsPresent } else { $Null }
             "roles"                                                      = @(
                 @{
-                    "value"   = $Roles
-                    "display" = $Roles
+                    "value"   = $Role
+                    "display" = $Role
                 }
             )
             "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
@@ -200,6 +203,9 @@
                     }
                 )
                 'directoryId'  = $DirectoryID
+                'custom01'     = $Custom01
+                'custom02'     = $Custom02
+                'custom03'     = $Custom03
             }
         }
 
