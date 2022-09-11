@@ -23,9 +23,9 @@ $Configuration = @{
             # Minimum version of the Windows PowerShell engine required by this module
             PowerShellVersion          = '5.1'
             # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-            Tags                       = @('Windows', 'macOS', "Linux", 'Federated', 'Directory')
+            Tags                       = @('Windows', 'macOS', "Linux", 'Federated', 'Directory', 'FederatedDirectory')
 
-            #IconUri                    = 'https://evotec.xyz/wp-content/uploads/2018/12/PSWriteHTML.png'
+            IconUri                    = 'https://www.federated.directory/assets/icons/icon-144x144.png'
 
             ProjectUri                 = 'https://github.com/EvotecIT/PowerFederatedDirectory'
 
