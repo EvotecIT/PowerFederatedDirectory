@@ -2,7 +2,7 @@
 
 $Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedDirectory.txt'
 
-Connect-FederatedDirectory -Token $Token -Verbose -Suppress
+Connect-FederatedDirectory -Token $Token -Suppress
 
 Get-FederatedDirectoryUser -Verbose -Attributes 'id', 'userName', 'phoneNumbers', 'groups', 'employeeNumber' | Format-List *
 Get-FederatedDirectoryUser -Verbose | Format-List *
