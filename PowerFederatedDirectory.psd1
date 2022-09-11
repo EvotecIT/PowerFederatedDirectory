@@ -5,7 +5,7 @@
     CompanyName          = 'Evotec'
     CompatiblePSEditions = @('Desktop', 'Core')
     Copyright            = '(c) 2011 - 2022 Przemyslaw Klys @ Evotec. All rights reserved.'
-    Description          = ''
+    Description          = 'PowerShell module to interact with Federated Directory service which allows to group employees from different corporate address books into a federated directory.'
     FunctionsToExport    = @('Add-FederatedDirectoryUser', 'Connect-FederatedDirectory', 'Get-FederatedDirectorySchema', 'Get-FederatedDirectoryUser', 'Remove-FederatedDirectoryUser', 'Set-FederatedDirectoryUser')
     GUID                 = 'b73875b9-d87b-4a10-8cb5-0980d180c05b'
     ModuleVersion        = '0.0.1'
