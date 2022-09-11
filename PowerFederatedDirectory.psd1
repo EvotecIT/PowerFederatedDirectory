@@ -1,12 +1,12 @@
 ﻿@{
-    AliasesToExport      = @('Add-FDUser', 'Connect-FD', 'Get-FDUser', 'Remove-FDUser', 'Set-FDUser')
+    AliasesToExport      = @('Add-FDUser', 'Connect-FD', 'Get-FDSchema', 'Get-FDUser', 'Remove-FDUser', 'Set-FDUser')
     Author               = 'Przemyslaw Klys'
     CmdletsToExport      = @()
     CompanyName          = 'Evotec'
     CompatiblePSEditions = @('Desktop', 'Core')
     Copyright            = '(c) 2011 - 2022 Przemyslaw Klys @ Evotec. All rights reserved.'
     Description          = ''
-    FunctionsToExport    = @('Add-FederatedDirectoryUser', 'Connect-FederatedDirectory', 'Get-FederatedDirectoryUser', 'Remove-FederatedDirectoryUser', 'Set-FederatedDirectoryUser')
+    FunctionsToExport    = @('Add-FederatedDirectoryUser', 'Connect-FederatedDirectory', 'Get-FederatedDirectorySchema', 'Get-FederatedDirectoryUser', 'Remove-FederatedDirectoryUser', 'Set-FederatedDirectoryUser')
     GUID                 = 'b73875b9-d87b-4a10-8cb5-0980d180c05b'
     ModuleVersion        = '0.0.1'
     PowerShellVersion    = '5.1'
