@@ -12,8 +12,9 @@
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
-            Tags       = @('Windows', 'macOS', 'Linux', 'Federated', 'Directory')
+            Tags       = @('Windows', 'macOS', 'Linux', 'Federated', 'Directory', 'FederatedDirectory')
             ProjectUri = 'https://github.com/EvotecIT/PowerFederatedDirectory'
+            IconUri    = 'https://www.federated.directory/assets/icons/icon-144x144.png'
         }
     }
     RequiredModules      = @(@{
