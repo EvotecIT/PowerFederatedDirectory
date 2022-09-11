@@ -1,4 +1,33 @@
 ﻿function Connect-FederatedDirectory {
+    <#
+    .SYNOPSIS
+    Connects to a federated directory.
+
+    .DESCRIPTION
+    Connects to a federated directory.
+
+    .PARAMETER Token
+    The token to use for authentication to the federated directory from New-JWT command. This is the default.
+
+    .PARAMETER TokenEncrypted
+    The encrypted token to use for authentication to the federated directory from New-JWT command.
+
+    .PARAMETER ExpiresTimeout
+    The number of seconds before the token expires.
+
+    .PARAMETER ForceRefresh
+    Forces a refresh of the authentication
+
+    .PARAMETER Suppress
+    Suppresses the output of the command. By default the command will output the connection information.
+
+    .EXAMPLE
+    $Token = 'TokenInformation'
+    Connect-FederatedDirectory -Token $Token -Suppress
+
+    .NOTES
+    General notes
+    #>
     [alias('Connect-FD')]
     [cmdletbinding(DefaultParameterSetName = 'ClearText')]
     param(
