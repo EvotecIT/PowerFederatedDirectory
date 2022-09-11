@@ -1,5 +1,6 @@
 ﻿function Add-FederatedDirectoryUser {
     [alias('Add-FDUser')]
+    [CmdletBinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $ExternalId,
@@ -27,14 +28,26 @@
         [string] $PhoneNumberMobile,
         [string] $PhotoUrl,
         [string] $ThumbnailUrl,
+        [string] $CompanyID,
+        [string] $CompanyLogoUrl,
+        [string] $CompanyThumbnailUrl,
+        [string] $PreferredLanguage,
+        [string] $Locale,
+        [string] $TimeZone,
         [string] $Title,
         [string] $UserType,
+        [string] $Password,
+        [string] $ManagerID,
+        [string] $ManagerUserName,
+        [string] $ManagerReference,
+        [string] $ManagerDisplayName,
         [bool] $Active,
+        [string] $Department,
         [string] $EmployeeNumber,
         [string] $CostCenter,
         [string] $Division,
         [string] $Description,
-
+        [ValidateSet('admin', 'user')][string] $Roles = 'user',
         [switch] $Suppress
     )
 
@@ -52,6 +65,9 @@
         }
     }
     if ($Authorization) {
+        if ($ManagerUserName) {
+            $ManagerID = (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $ManagerUserName).Id
+        }
 
         $Body = [ordered] @{
             schemas                                                      = @(
@@ -141,25 +157,49 @@
                     }
                 }
             )
+            "password"                                                   = $Password
+            "preferredLanguage"                                          = $PreferredLanguage
+            "locale"                                                     = $Locale
+            "timeZone"                                                   = $TimeZone
             "userType"                                                   = $UserType
             "title"                                                      = $Title
             "active"                                                     = $Active # true or false
-            # "roles"                                                      = @(
-            #     # Always include the mandatory attributes userName & displayName when creating a user.
-            #     # However a contact does not contain a userName. Do not include an id attribute or the meta object.
-            #     @{
-            #         "value"   = "user"
-            #         "display" = "user"
-            #     }
-            # )
+            "roles"                                                      = @(
+                @{
+                    "value"   = $Roles
+                    "display" = $Roles
+                }
+            )
             "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
+                "organization"   = $Organization
+                "department"     = $Department
                 "employeeNumber" = $EmployeeNumber
                 "costCenter"     = $CostCenter
                 "division"       = $Division
+                "manager"        = @{
+                    "displayName" = $ManagerDisplayName
+                    "value"       = $ManagerID
+                    "`$ref"       = $ManagerReference # "../v2/Users/d09420a0-e97a-11e7-9faf-236ea7c81614"
+                }
             }
             "urn:ietf:params:scim:schemas:extension:fd:2.0:User"         = [ordered] @{
-                "description" = $Description
-                #'directoryId' = $DirectoryID
+                "description"  = $Description
+                "companyId"    = $CompanyId
+                "companyLogos" = @(
+                    if ($CompanyLogoUrl) {
+                        @{
+                            "value" = $CompanyLogoUrl
+                            "type"  = "logo"
+                        }
+                    }
+                    if ($CompanyThumbnailUrl) {
+                        @{
+                            "value" = $CompanyThumbnailUrl
+                            "type"  = "thumbnail"
+                        }
+                    }
+                )
+                'directoryId'  = $DirectoryID
             }
         }
 
@@ -195,13 +235,15 @@
             #     $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
             # }
         } catch {
-            $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
-            if ($ErrorDetails.Detail -like '*already exists*directory*') {
-                Write-Warning -Message "Add-FederatedDirectoryUser - $($ErrorDetails.Detail) [UserName: $UserName / DisplayName: $DisplayName]"
-                return
+            if ($PSBoundParameters.ErrorAction -eq 'Stop') {
+                throw
             } else {
-                Write-Warning -Message "Add-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
-                return
+                $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
+                if ($ErrorDetails.Detail -like '*already exists*directory*') {
+                    Write-Warning -Message "Add-FederatedDirectoryUser - $($ErrorDetails.Detail) [UserName: $UserName / DisplayName: $DisplayName]"
+                } else {
+                    Write-Warning -Message "Add-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                }
             }
         }
     } else {
