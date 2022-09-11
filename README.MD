@@ -23,7 +23,7 @@
 `PowerFederatedDirectory` is a PowerShell module to interact with service https://www.federated.directory/. This module uses API exposed by **Federated Directory** and allows to Add, Get, Set and Remove users from **Federated Directory**.
 This is unofiicial module and is not supported by **Federated Directory**, but it does work just fine.
 
-### Creating Tokeen
+### Creating Token
 
 1. Install OpenSSL (manually or using chocolatey)
 
@@ -53,7 +53,41 @@ $JWT
 
 4. Use the token in the `Connect-FederatedDirectory`. Once created token works forever, so the OpenSSL / jwtPS is not required on production environment.
 
-#### Attributes
+### Using the module
+
+Connect to Federated Directory using created token. This token will automatically be used for all commands.
+
+```powershell
+Connect-FederatedDirectory -Token $JWT -Suppress
+```
+
+#### Get users
+
+```powershell
+Get-FederatedDirectoryUser -Attributes id, userName, 'custom01', 'custom02', 'employeeNumber' -Verbose | Format-Table *
+```
+
+#### Create users
+
+```powershell
+for ($i = 1; $i -le 10; $i++) {
+    Add-FederatedDirectoryUser -UserName "TestUserNew$i@test.pl" -DisplayName "TestUserNew$i" -Suppress
+}
+```
+
+#### Update users
+
+```powershell
+Set-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '50246000' -Verbose -Custom01 'test123' -Action Update
+```
+
+#### Remove users
+
+```powershell
+Remove-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -Verbose
+```
+
+### Attributes
 
 The attributes, filter and sortBy parameters can be configured by the below list of attributes.
 
