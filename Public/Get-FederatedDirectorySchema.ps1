@@ -1,7 +1,23 @@
 ﻿function Get-FederatedDirectorySchema {
+    <#
+    .SYNOPSIS
+    Get the schema of a federated directory.
+
+    .DESCRIPTION
+    Get the schema of a federated directory.
+
+    .EXAMPLE
+    $Schema = Get-FederatedDirectorySchema
+    $Schema | Where-Object { $_.Name -eq 'User' } | Select-Object -ExpandProperty Attributes | Format-Table
+    $Schema | Where-Object { $_.Name -eq 'EnterpriseUser' } | Select-Object -ExpandProperty Attributes | Format-Table
+    $Schema | Where-Object { $_.Name -eq 'FederatedDirectoryUser' } | Select-Object -ExpandProperty Attributes | Format-Table
+
+    .NOTES
+    General notes
+    #>
     [alias('Get-FDSchema')]
     [cmdletbinding()]
-    param(   )
+    param()
 
     $BaseUri = "https://api.federated.directory/v2/Schemas"
 
