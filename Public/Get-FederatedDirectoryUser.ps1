@@ -83,7 +83,8 @@
             'custom02',
             'custom03'
         )]
-        [string[]] $Attributes
+        [string[]] $Attributes,
+        [switch] $Native
     )
 
     $ConvertAttributes = @{
@@ -198,11 +199,25 @@
 
             if ($MaxResults -gt 0 -and $BatchObjects.Resources.Count -ge $MaxResults) {
                 # return users if amount of users available is more than we wanted
-                $BatchObjects.Resources | Select-Object -First $MaxResults
+                if ($Native) {
+                    $BatchObjects.Resources | Select-Object -First $MaxResults
+                } else {
+                    Convert-FederatedUser -Users ($BatchObjects.Resources | Select-Object -First $MaxResults)
+                }
                 $LimitReached = $true
             } else {
                 # return all users that were given in a batch
-                $BatchObjects.Resources
+                if ($Native) {
+                    $BatchObjects.Resources
+                } else {
+                    Convert-FederatedUser -Users $BatchObjects.Resources
+                }
+            }
+        } elseif ($BatchObjects.Schemas -and $BatchObjects.id) {
+            if ($Native) {
+                $BatchObjects
+            } else {
+                Convert-FederatedUser -Users $BatchObjects
             }
         } else {
             Write-Verbose "Get-FederatedDirectoryUser - No users found"
