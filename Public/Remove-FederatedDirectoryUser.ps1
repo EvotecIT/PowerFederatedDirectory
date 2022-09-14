@@ -15,7 +15,7 @@
     .PARAMETER Id
     The id of the user to remove from the federated directory.
 
-    .PARAMETER UserName
+    .PARAMETER SearchUserName
     The user name of the user to remove from the federated directory.
 
     .PARAMETER DirectoryID
@@ -42,7 +42,7 @@
         [System.Collections.IDictionary] $Authorization,
         [parameter(Position = 0, ValueFromPipeline, Mandatory, ParameterSetName = 'User')][PSCustomObject[]] $User,
         [parameter(Mandatory, ParameterSetName = 'Id')][string[]] $Id,
-        [parameter(Mandatory, ParameterSetName = 'UserName')][string[]] $UserName,
+        [parameter(Mandatory, ParameterSetName = 'UserName')][string[]] $SearchUserName,
         [parameter()][string] $DirectoryID
     )
     Begin {
@@ -66,8 +66,8 @@
                 $RemoveID = $Id
             } elseif ($User) {
                 $RemoveID = $User.Id
-            } elseif ($UserName) {
-                $RemoveID = Foreach ($U in $UserName) {
+            } elseif ($SearchUserName) {
+                $RemoveID = Foreach ($U in $SearchUserName) {
                     (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
                 }
             } else {

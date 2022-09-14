@@ -3,6 +3,7 @@
     [CmdletBinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
+        [string] $SearchUserName,
         [string] $Id,
         [string] $ExternalId,
         [parameter()][string] $DirectoryID,
@@ -30,8 +31,8 @@
         [string] $PhotoUrl,
         [string] $ThumbnailUrl,
         [string] $CompanyID,
-        [string] $CompanyLogoUrl,
-        [string] $CompanyThumbnailUrl,
+        #[string] $CompanyLogoUrl,
+        #[string] $CompanyThumbnailUrl,
         [string] $PreferredLanguage,
         [string] $Locale,
         [string] $TimeZone,
@@ -43,6 +44,7 @@
         [string] $ManagerReference,
         [string] $ManagerDisplayName,
         [bool] $Active,
+        #[string] $Organization,
         [string] $Department,
         [string] $EmployeeNumber,
         [string] $CostCenter,
@@ -70,57 +72,67 @@
         }
     }
     if ($Authorization) {
+        if ($Id) {
+            $SetID = $Id
+        } elseif ($User) {
+            $SetID = $User.Id
+        } elseif ($SearchUserName) {
+            $SetID = Foreach ($U in $SearchUserName) {
+                (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
+            }
+        } else {
+            return
+        }
         if ($Action -eq 'Update') {
             $TranslatePath = @{
-                UserName            = "userName"
-                ExternalId          = "externalId"
-                FamilyName          = "name.familyName"
-                Password            = "password" # not used yet
+                UserName           = "userName"
+                ExternalId         = "externalId"
+                FamilyName         = "name.familyName"
+                Password           = "password" # not used yet
                 # not used yet
-                Role                = "roles.value" #  "admin" or "user"
-                GivenName           = 'name.givenName'
-                DisplayName         = 'displayName'
-                NickName            = 'nickName'
-                ProfileUrl          = 'profileUrl'
-                EmailAddressWork    = 'emails[type eq "work"].value'
-                EmailAddressHome    = 'emails[type eq "home"].value'
-                StreetAddress       = 'addresses[type eq "work"].streetAddress'
-                Locality            = 'addresses[type eq "work"].locality'
-                Region              = 'addresses[type eq "work"].region'
-                PostalCode          = 'addresses[type eq "work"].postalCode'
-                Country             = 'addresses[type eq "work"].country'
-                StreetAddressHome   = 'addresses[type eq "home"].streetAddress'
-                PostalCodeHome      = 'addresses[type eq "home"].postalCode'
-                LocalityHome        = 'addresses[type eq "home"].locality'
-                RegionHome          = 'addresses[type eq "home"].region'
-                CountryHome         = 'addresses[type eq "home"].country'
-                PhoneNumberWork     = 'phoneNumbers[type eq "work"].value'
-                PhoneNumberHome     = 'phoneNumbers[type eq "home"].value'
-                PhoneNumberMobile   = 'phoneNumbers[type eq "mobile"].value'
-                PhotoUrl            = 'photos[type eq "photo"].value'
-                ThumbnailUrl        = 'photos[type eq "thumbnail"].value'
-                Title               = 'title'
-                UserType            = 'userType'
-                Active              = 'active'
-                TimeZone            = 'timezone'
-                Locale              = 'locale'
-                PreferredLanguage   = 'preferredLanguage'
-                EmployeeNumber      = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber'
-                CostCenter          = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter'
-                Division            = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division'
-                Department          = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department'
-                Organization        = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization'
-                ManagerID           = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
-                ManagerUserName     = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
-                ManagerReference    = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.$ref'
-                ManagerDisplayName  = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.displayName'
-                Description         = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:description"
-                Custom01            = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom01"
-                Custom02            = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom02"
-                Custom03            = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom03"
-                CompanyID           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId"
-                CompanyLogoUrl      = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "logo"].value'
-                CompanyThumbnailUrl = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "thumbnail"].value'
+                Role               = "roles.value" #  "admin" or "user"
+                GivenName          = 'name.givenName'
+                DisplayName        = 'displayName'
+                NickName           = 'nickName'
+                ProfileUrl         = 'profileUrl'
+                EmailAddressWork   = 'emails[type eq "work"].value'
+                EmailAddressHome   = 'emails[type eq "home"].value'
+                StreetAddress      = 'addresses[type eq "work"].streetAddress'
+                Locality           = 'addresses[type eq "work"].locality'
+                Region             = 'addresses[type eq "work"].region'
+                PostalCode         = 'addresses[type eq "work"].postalCode'
+                Country            = 'addresses[type eq "work"].country'
+                StreetAddressHome  = 'addresses[type eq "home"].streetAddress'
+                PostalCodeHome     = 'addresses[type eq "home"].postalCode'
+                LocalityHome       = 'addresses[type eq "home"].locality'
+                RegionHome         = 'addresses[type eq "home"].region'
+                CountryHome        = 'addresses[type eq "home"].country'
+                PhoneNumberWork    = 'phoneNumbers[type eq "work"].value'
+                PhoneNumberHome    = 'phoneNumbers[type eq "home"].value'
+                PhoneNumberMobile  = 'phoneNumbers[type eq "mobile"].value'
+                PhotoUrl           = 'photos[type eq "photo"].value'
+                ThumbnailUrl       = 'photos[type eq "thumbnail"].value'
+                Title              = 'title'
+                UserType           = 'userType'
+                Active             = 'active'
+                TimeZone           = 'timezone'
+                Locale             = 'locale'
+                PreferredLanguage  = 'preferredLanguage'
+                EmployeeNumber     = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber'
+                CostCenter         = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter'
+                Division           = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division'
+                Department         = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department'
+                Organization       = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization'
+                ManagerID          = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
+                ManagerUserName    = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
+                ManagerDisplayName = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.displayName'
+                Description        = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:description"
+                Custom01           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom01"
+                Custom02           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom02"
+                Custom03           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom03"
+                CompanyID          = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId"
+                #CompanyLogoUrl      = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "logo"].value'
+                #CompanyThumbnailUrl = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "thumbnail"].value'
             }
 
             if ($ManagerUserName) {
@@ -268,7 +280,7 @@
                     }
                 )
                 "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
-                    "organization"   = $Organization
+                    #"organization"   = $Organization # read only...
                     "department"     = $Department
                     "employeeNumber" = $EmployeeNumber
                     "costCenter"     = $CostCenter
@@ -276,30 +288,29 @@
                     "manager"        = @{
                         "displayName" = $ManagerDisplayName
                         "value"       = $ManagerID
-                        "`$ref"       = $ManagerReference # "../v2/Users/d09420a0-e97a-11e7-9faf-236ea7c81614"
                     }
                 }
                 "urn:ietf:params:scim:schemas:extension:fd:2.0:User"         = [ordered] @{
-                    "description"  = $Description
-                    "companyId"    = $CompanyId
-                    "companyLogos" = @(
-                        if ($CompanyLogoUrl) {
-                            @{
-                                "value" = $CompanyLogoUrl
-                                "type"  = "logo"
-                            }
-                        }
-                        if ($CompanyThumbnailUrl) {
-                            @{
-                                "value" = $CompanyThumbnailUrl
-                                "type"  = "thumbnail"
-                            }
-                        }
-                    )
-                    'directoryId'  = $DirectoryID
-                    'custom01'     = $Custom01
-                    'custom02'     = $Custom02
-                    'custom03'     = $Custom03
+                    "description" = $Description
+                    "companyId"   = $CompanyId
+                    # "companyLogos" = @(
+                    #     if ($CompanyLogoUrl) {
+                    #         @{
+                    #             "value" = $CompanyLogoUrl
+                    #             "type"  = "logo"
+                    #         }
+                    #     }
+                    #     if ($CompanyThumbnailUrl) {
+                    #         @{
+                    #             "value" = $CompanyThumbnailUrl
+                    #             "type"  = "thumbnail"
+                    #         }
+                    #     }
+                    # )
+                    #'directoryId'  = $DirectoryID
+                    'custom01'    = $Custom01
+                    'custom02'    = $Custom02
+                    'custom03'    = $Custom03
                 }
             }
         }
@@ -308,7 +319,7 @@
 
             $invokeRestMethodSplat = [ordered] @{
                 Method      = if ($Action -eq 'Update') { 'PATCH' } else { 'PUT' }
-                Uri         = "https://api.federated.directory/v2/Users/$Id"
+                Uri         = "https://api.federated.directory/v2/Users/$SetID"
                 Headers     = [ordered]  @{
                     'Content-Type'  = 'application/json'
                     'Authorization' = $Authorization.Authorization
@@ -340,9 +351,9 @@
             } else {
                 $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
                 if ($ErrorDetails.Detail -like '*userName is mandatory*') {
-                    Write-Warning -Message "Set-FederatedDirectoryUser - $($ErrorDetails.Detail) [Id: $Id]"
+                    Write-Warning -Message "Set-FederatedDirectoryUser - $($ErrorDetails.Detail) [Id: $SetID]"
                 } else {
-                    Write-Warning -Message "Set-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                    Write-Warning -Message "Set-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail) [Id: $SetID]"
                 }
             }
         }

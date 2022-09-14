@@ -4,7 +4,7 @@
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $Id,
-        [string] $UserName,
+        [Alias('SearchUserName')][string] $UserName,
         [string] $DirectoryID,
         [int] $MaxResults,
         [int] $StartIndex = 1,

@@ -11,16 +11,16 @@
         [parameter(Mandatory)][string] $DisplayName,
         [string] $NickName,
         [string] $ProfileUrl,
-        [string] $EmailAddressWork,
+        [string] $EmailAddress,
         [string] $EmailAddressHome,
         [string] $StreetAddress,
-        [string] $Locality,
+        [string] $City,
         [string] $Region,
         [string] $PostalCode,
         [string] $Country,
         [string] $StreetAddressHome,
         [string] $PostalCodeHome,
-        [string] $LocalityHome,
+        [string] $CityHome,
         [string] $RegionHome,
         [string] $CountryHome,
         [string] $PhoneNumberWork,
@@ -29,8 +29,8 @@
         [string] $PhotoUrl,
         [string] $ThumbnailUrl,
         [string] $CompanyID,
-        [string] $CompanyLogoUrl,
-        [string] $CompanyThumbnailUrl,
+        # [string] $CompanyLogoUrl,
+        # [string] $CompanyThumbnailUrl,
         [string] $PreferredLanguage,
         [string] $Locale,
         [string] $TimeZone,
@@ -39,7 +39,6 @@
         [string] $Password,
         [string] $ManagerID,
         [string] $ManagerUserName,
-        [string] $ManagerReference,
         [string] $ManagerDisplayName,
         [switch] $Active,
         [string] $Department,
@@ -88,9 +87,9 @@
             "nickName"                                                   = $NickName
             "profileUrl"                                                 = $ProfileUrl
             "emails"                                                     = @(
-                if ($EmailAddressWork) {
+                if ($EmailAddress) {
                     @{
-                        "value"   = $EmailAddressWork
+                        "value"   = $EmailAddress
                         "type"    = "work"
                         "primary" = $true
                     }
@@ -103,10 +102,10 @@
                 }
             )
             "addresses"                                                  = @(
-                if ($StreetAddress -or $Locality -or $Region -or $PostalCode -or $Country) {
+                if ($StreetAddress -or $City -or $Region -or $PostalCode -or $Country) {
                     @{
                         "streetAddress" = $StreetAddress
-                        "locality"      = $Locality
+                        "locality"      = $City
                         "region"        = $Region
                         "postalCode"    = $PostalCode
                         "country"       = $Country
@@ -114,10 +113,10 @@
                         "primary"       = $true
                     }
                 }
-                if ($StreetAddressHome -or $LocalityHome -or $RegionHome -or $PostalCodeHome -or $CountryHome) {
+                if ($StreetAddressHome -or $CityHome -or $RegionHome -or $PostalCodeHome -or $CountryHome) {
                     @{
                         "streetAddress" = $StreetAddressHome
-                        "locality"      = $LocalityHome
+                        "locality"      = $CityHome
                         "region"        = $RegionHome
                         "postalCode"    = $PostalCodeHome
                         "country"       = $CountryHome
@@ -174,7 +173,7 @@
                 }
             )
             "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
-                "organization"   = $Organization
+                #"organization"   = $Organization # read only...
                 "department"     = $Department
                 "employeeNumber" = $EmployeeNumber
                 "costCenter"     = $CostCenter
@@ -182,30 +181,30 @@
                 "manager"        = @{
                     "displayName" = $ManagerDisplayName
                     "value"       = $ManagerID
-                    "`$ref"       = $ManagerReference # "../v2/Users/d09420a0-e97a-11e7-9faf-236ea7c81614"
+                    #"`$ref"       = $ManagerReference # readonly
                 }
             }
             "urn:ietf:params:scim:schemas:extension:fd:2.0:User"         = [ordered] @{
-                "description"  = $Description
-                "companyId"    = $CompanyId
-                "companyLogos" = @(
-                    if ($CompanyLogoUrl) {
-                        @{
-                            "value" = $CompanyLogoUrl
-                            "type"  = "logo"
-                        }
-                    }
-                    if ($CompanyThumbnailUrl) {
-                        @{
-                            "value" = $CompanyThumbnailUrl
-                            "type"  = "thumbnail"
-                        }
-                    }
-                )
-                'directoryId'  = $DirectoryID
-                'custom01'     = $Custom01
-                'custom02'     = $Custom02
-                'custom03'     = $Custom03
+                "description" = $Description
+                "companyId"   = $CompanyId
+                # "companyLogos" = @(
+                #     if ($CompanyLogoUrl) {
+                #         @{
+                #             "value" = $CompanyLogoUrl
+                #             "type"  = "logo"
+                #         }
+                #     }
+                #     if ($CompanyThumbnailUrl) {
+                #         @{
+                #             "value" = $CompanyThumbnailUrl
+                #             "type"  = "thumbnail"
+                #         }
+                #     }
+                # )
+                #'directoryId' = $DirectoryID
+                'custom01'    = $Custom01
+                'custom02'    = $Custom02
+                'custom03'    = $Custom03
             }
         }
 
