@@ -4,6 +4,6 @@ $Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedD
 
 Connect-FederatedDirectory -Token $Token -Suppress
 
-Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose
-Get-FederatedDirectoryUser -UserName 'testuser' | Remove-FederatedDirectoryUser -Verbose
-Remove-FederatedDirectoryUser -Verbose -SearchUserName 'testuser'
+Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose -WhatIf
+Get-FederatedDirectoryUser -UserName 'testuser' | Remove-FederatedDirectoryUser -Verbose -WhatIf
+Remove-FederatedDirectoryUser -Verbose -SearchUserName 'testuser' -WhatIf
