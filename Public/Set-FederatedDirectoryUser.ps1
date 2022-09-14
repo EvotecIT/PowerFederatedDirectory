@@ -1,6 +1,6 @@
 ﻿function Set-FederatedDirectoryUser {
     [alias('Set-FDUser')]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $SearchUserName,
@@ -13,16 +13,16 @@
         [parameter()][string] $DisplayName,
         [string] $NickName,
         [string] $ProfileUrl,
-        [string] $EmailAddressWork,
+        [string] $EmailAddress,
         [string] $EmailAddressHome,
         [string] $StreetAddress,
-        [string] $Locality,
+        [string] $City,
         [string] $Region,
         [string] $PostalCode,
         [string] $Country,
         [string] $StreetAddressHome,
         [string] $PostalCodeHome,
-        [string] $LocalityHome,
+        [string] $CityHome,
         [string] $RegionHome,
         [string] $CountryHome,
         [string] $PhoneNumberWork,
@@ -95,16 +95,16 @@
                 DisplayName        = 'displayName'
                 NickName           = 'nickName'
                 ProfileUrl         = 'profileUrl'
-                EmailAddressWork   = 'emails[type eq "work"].value'
+                EmailAddress       = 'emails[type eq "work"].value'
                 EmailAddressHome   = 'emails[type eq "home"].value'
                 StreetAddress      = 'addresses[type eq "work"].streetAddress'
-                Locality           = 'addresses[type eq "work"].locality'
+                City               = 'addresses[type eq "work"].locality'
                 Region             = 'addresses[type eq "work"].region'
                 PostalCode         = 'addresses[type eq "work"].postalCode'
                 Country            = 'addresses[type eq "work"].country'
                 StreetAddressHome  = 'addresses[type eq "home"].streetAddress'
                 PostalCodeHome     = 'addresses[type eq "home"].postalCode'
-                LocalityHome       = 'addresses[type eq "home"].locality'
+                CityHome           = 'addresses[type eq "home"].locality'
                 RegionHome         = 'addresses[type eq "home"].region'
                 CountryHome        = 'addresses[type eq "home"].country'
                 PhoneNumberWork    = 'phoneNumbers[type eq "work"].value'
@@ -194,9 +194,9 @@
                 "nickName"                                                   = $NickName
                 "profileUrl"                                                 = $ProfileUrl
                 "emails"                                                     = @(
-                    if ($EmailAddressWork) {
+                    if ($EmailAddress) {
                         @{
-                            "value"   = $EmailAddressWork
+                            "value"   = $EmailAddress
                             "type"    = "work"
                             "primary" = $true
                         }
@@ -335,10 +335,12 @@
             if ($VerbosePreference -eq 'Continue') {
                 $Body | ConvertTo-Json -Depth 10 | Write-Verbose
             }
-            $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
-            # don't return data as we trust it's been updated
-            if (-not $Suppress) {
-                $ReturnData
+            if ($PSCmdlet.ShouldProcess($SetID, "Updating user using $Action method")) {
+                $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
+                # don't return data as we trust it's been updated
+                if (-not $Suppress) {
+                    $ReturnData
+                }
             }
             # # for troubleshooting
             # if ($VerbosePreference -eq 'Continue') {
