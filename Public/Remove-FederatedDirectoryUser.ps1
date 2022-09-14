@@ -37,7 +37,7 @@
     General notes
     #>
     [alias('Remove-FDUser')]
-    [CmdletBinding(DefaultParameterSetName = 'Id')]
+    [CmdletBinding(DefaultParameterSetName = 'Id', SupportsShouldProcess)]
     param(
         [System.Collections.IDictionary] $Authorization,
         [parameter(Position = 0, ValueFromPipeline, Mandatory, ParameterSetName = 'User')][PSCustomObject[]] $User,
@@ -86,14 +86,15 @@
                         }
                         ErrorAction = 'Stop'
                     }
-                    Remove-EmptyValue -Hashtable $invokeRestMethodSplat
+                    Remove-EmptyValue -Hashtable $invokeRestMethodSplat -Recursive
 
                     if ($VerbosePreference -eq 'Continue') {
                         $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
                     }
-
-                    $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
-                    $ReturnData
+                    if ($PSCmdlet.ShouldProcess($I, "Removing user")) {
+                        $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
+                        $ReturnData
+                    }
                 } catch {
                     $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
                     if ($ErrorDetails.Detail -like "*not found*") {
