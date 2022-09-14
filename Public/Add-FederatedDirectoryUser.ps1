@@ -1,6 +1,6 @@
 ﻿function Add-FederatedDirectoryUser {
     [alias('Add-FDUser')]
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $ExternalId,
@@ -229,10 +229,12 @@
             if ($VerbosePreference -eq 'Continue') {
                 $Body | ConvertTo-Json -Depth 10 | Write-Verbose
             }
-            $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false
-            # don't return data as we trust it's been created
-            if (-not $Suppress) {
-                $ReturnData
+            if ($PSCmdlet.ShouldProcess("username $UserName, displayname $DisplayName", "Adding user")) {
+                $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false
+                # don't return data as we trust it's been created
+                if (-not $Suppress) {
+                    $ReturnData
+                }
             }
             # # for troubleshooting
             # if ($VerbosePreference -eq 'Continue') {
