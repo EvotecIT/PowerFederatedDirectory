@@ -43,7 +43,8 @@
         [parameter(Position = 0, ValueFromPipeline, Mandatory, ParameterSetName = 'User')][PSCustomObject[]] $User,
         [parameter(Mandatory, ParameterSetName = 'Id')][string[]] $Id,
         [parameter(Mandatory, ParameterSetName = 'UserName')][string[]] $SearchUserName,
-        [parameter()][string] $DirectoryID
+        [parameter()][string] $DirectoryID,
+        [switch] $BulkProcessing
     )
     Begin {
         if (-not $Authorization) {
@@ -75,6 +76,17 @@
             }
             foreach ($I in $RemoveID) {
                 Try {
+                    if ($BulkProcessing) {
+                        # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
+                        return [ordered] @{
+                            data   = @{
+                                schemas = @("urn:ietf:params:scim:schemas:core:2.0:User")
+                                id      = $I
+                            }
+                            method = 'DELETE'
+                            bulkid = $I
+                        }
+                    }
                     $invokeRestMethodSplat = [ordered] @{
                         Method      = 'DELETE'
                         Uri         = "https://api.federated.directory/v2/Users/$I"

@@ -56,7 +56,8 @@
         [alias('CustomAttribute03')][string] $Custom03,
         [switch] $Suppress,
         [ValidateSet('Overwrite', 'Update')][string] $Action = 'Update',
-        [System.Collections.IDictionary] $ActionPerProperty = @{}
+        [System.Collections.IDictionary] $ActionPerProperty = @{},
+        [switch] $BulkProcessing
     )
     if (-not $Authorization) {
         if ($Script:AuthorizationCacheFD) {
@@ -317,8 +318,17 @@
         Try {
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
 
+            $MethodChosen = if ($Action -eq 'Update') { 'PATCH' } else { 'PUT' }
+            if ($BulkProcessing) {
+                # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
+                return [ordered] @{
+                    data   = $Body
+                    method = $MethodChosen
+                    bulkid = $Body.id
+                }
+            }
             $invokeRestMethodSplat = [ordered] @{
-                Method      = if ($Action -eq 'Update') { 'PATCH' } else { 'PUT' }
+                Method      = $MethodChosen
                 Uri         = "https://api.federated.directory/v2/Users/$SetID"
                 Headers     = [ordered]  @{
                     'Content-Type'  = 'application/json'

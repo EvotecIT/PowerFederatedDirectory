@@ -50,7 +50,8 @@
         [alias('CustomAttribute01')][string] $Custom01,
         [alias('CustomAttribute02')][string] $Custom02,
         [alias('CustomAttribute03')][string] $Custom03,
-        [switch] $Suppress
+        [switch] $Suppress,
+        [switch] $BulkProcessing
     )
 
     if (-not $Authorization) {
@@ -211,11 +212,19 @@
         Try {
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
 
+            if ($BulkProcessing) {
+                # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
+                return [ordered] @{
+                    data   = $Body
+                    method = 'POST'
+                    bulkid = $Body.userName
+                }
+            }
             $invokeRestMethodSplat = [ordered] @{
                 Method      = 'POST'
                 Uri         = 'https://api.federated.directory/v2/Users'
                 Headers     = [ordered]  @{
-                    'Content-Type'  = 'application/json'
+                    'Content-Type'  = 'application/json; charset=utf-8'
                     'Authorization' = $Authorization.Authorization
                     'Cache-Control' = 'no-cache'
                 }
@@ -236,6 +245,7 @@
                     $ReturnData
                 }
             }
+
             # # for troubleshooting
             # if ($VerbosePreference -eq 'Continue') {
             #     $invokeRestMethodSplat.Remove('body')
