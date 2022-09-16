@@ -173,7 +173,7 @@
         Write-Verbose -Message "Get-FederatedDirectoryUser - Using query: $Uri"
 
         $Headers = @{
-            'Content-Type'  = 'application/json'
+            'Content-Type'  = 'application/json; charset=utf-8'
             'Authorization' = $Authorization.Authorization
             'directoryID'   = $DirectoryID
         }
@@ -237,7 +237,7 @@
                 Filter        = $Filter
                 SortBy        = $SortBy
                 SortOrder     = $SortOrder
-                Attributes    = $Attributes -join ","
+                Attributes    = $Attributes
                 DirectoryID   = $DirectoryID
             }
             Remove-EmptyValue -Hashtable $getFederatedDirectoryUserSplat
