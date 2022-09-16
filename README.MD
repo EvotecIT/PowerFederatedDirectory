@@ -94,8 +94,10 @@ The attributes, filter and sortBy parameters can be configured by the below list
 | Attribute                                                                 | Filter operator         |
 | ------------------------------------------------------------------------- | ----------------------- |
 | **id**                                                                    | eq                      |
-| externalId                                                                | co (admin only)         |
-| userName                                                                  | co (admin only)         |
+| externalId                                                                | eq                      |
+|                                                                           | co (admin only)         |
+| userName                                                                  | eq                      |
+|                                                                           | co (admin only)         |
 | name.givenName                                                            |                         |
 | name.familyName                                                           |                         |
 | **displayName**                                                           | co                      |
@@ -110,7 +112,7 @@ The attributes, filter and sortBy parameters can be configured by the below list
 | locale                                                                    |                         |
 | timezone                                                                  |                         |
 | active                                                                    |                         |
-| groups                                                                    | eq (group members only) |
+| **groups**                                                                | eq (group members only) |
 | roles                                                                     |                         |
 | meta                                                                      |                         |
 | urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization   |                         |
@@ -122,7 +124,7 @@ The attributes, filter and sortBy parameters can be configured by the below list
 | urn:ietf:params:scim:schemas:extension:fd:2.0:User:description            |                         |
 | urn:ietf:params:scim:schemas:extension:fd:2.0:User:directoryId            | eq                      |
 | urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId              | eq                      |
-| urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos           |                         |
+| urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos           |
 
 When no attributes are specified as a parameter in the query, it will default to the bold printed attributes above.
 
