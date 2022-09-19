@@ -4,8 +4,9 @@ $Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedD
 
 Connect-FederatedDirectory -Token $Token -Suppress
 
-$Operations = for ($i = 1; $i -le 10; $i++) {
-    Add-FederatedDirectoryUser -UserName "TestUserąęNew$i@test.pl" -DisplayName "TestęąśśśUserNew$i" -ManagerDisplayName 'TestUser' -FamilyName 'Kłys' -GivenName 'Przemysłąw' -BulkProcessing
+$Operations = for ($i = 1; $i -le 100; $i++) {
+    Add-FederatedDirectoryUser -Verbose -UserName "TestNewwwww$i@test.pl" -DisplayName "TestUserNew$i" -ManagerDisplayName 'TestUser' -FamilyName 'Kłys' -GivenName 'Przemysłąw' -BulkProcessing
 }
-$Response = Invoke-FederatedDirectory -Operations $Operations  #-WhatIf
+$Response = Invoke-FederatedDirectory -Operations $Operations -Verbose #-WhatIf
 $Response | Format-Table *
+$Response
