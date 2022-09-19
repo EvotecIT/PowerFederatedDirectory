@@ -15,7 +15,7 @@ schema: 2.0.0
 ```
 Get-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-Id] <String>] [[-UserName] <String>]
  [[-DirectoryID] <String>] [[-MaxResults] <Int32>] [[-StartIndex] <Int32>] [[-Count] <Int32>]
- [[-Filter] <String>] [[-SortBy] <String>] [[-SortOrder] <String>] [[-Attributes] <String[]>]
+ [[-Filter] <String>] [[-SortBy] <String>] [[-SortOrder] <String>] [[-Attributes] <String[]>] [-Native]
  [<CommonParameters>]
 ```
 
@@ -139,6 +139,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Native
+{{ Fill Native Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -SortBy
 {{ Fill SortBy Description }}
 
@@ -192,7 +207,7 @@ Accept wildcard characters: False
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: SearchUserName
 
 Required: False
 Position: 2

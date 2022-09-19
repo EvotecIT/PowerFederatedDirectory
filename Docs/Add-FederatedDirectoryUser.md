@@ -15,17 +15,17 @@ schema: 2.0.0
 ```
 Add-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-ExternalId] <String>] [[-DirectoryID] <String>]
  [-UserName] <String> [[-FamilyName] <Object>] [[-GivenName] <String>] [-DisplayName] <String>
- [[-NickName] <String>] [[-ProfileUrl] <String>] [[-EmailAddressWork] <String>] [[-EmailAddressHome] <String>]
- [[-StreetAddress] <String>] [[-Locality] <String>] [[-Region] <String>] [[-PostalCode] <String>]
- [[-Country] <String>] [[-StreetAddressHome] <String>] [[-PostalCodeHome] <String>] [[-LocalityHome] <String>]
+ [[-NickName] <String>] [[-ProfileUrl] <String>] [[-EmailAddress] <String>] [[-EmailAddressHome] <String>]
+ [[-StreetAddress] <String>] [[-City] <String>] [[-Region] <String>] [[-PostalCode] <String>]
+ [[-Country] <String>] [[-StreetAddressHome] <String>] [[-PostalCodeHome] <String>] [[-CityHome] <String>]
  [[-RegionHome] <String>] [[-CountryHome] <String>] [[-PhoneNumberWork] <String>] [[-PhoneNumberHome] <String>]
  [[-PhoneNumberMobile] <String>] [[-PhotoUrl] <String>] [[-ThumbnailUrl] <String>] [[-CompanyID] <String>]
- [[-CompanyLogoUrl] <String>] [[-CompanyThumbnailUrl] <String>] [[-PreferredLanguage] <String>]
- [[-Locale] <String>] [[-TimeZone] <String>] [[-Title] <String>] [[-UserType] <String>] [[-Password] <String>]
- [[-ManagerID] <String>] [[-ManagerUserName] <String>] [[-ManagerReference] <String>]
+ [[-PreferredLanguage] <String>] [[-Locale] <String>] [[-TimeZone] <String>] [[-Title] <String>]
+ [[-UserType] <String>] [[-Password] <String>] [[-ManagerID] <String>] [[-ManagerUserName] <String>]
  [[-ManagerDisplayName] <String>] [-Active] [[-Department] <String>] [[-EmployeeNumber] <String>]
  [[-CostCenter] <String>] [[-Division] <String>] [[-Description] <String>] [[-Role] <String>]
- [[-Custom01] <String>] [[-Custom02] <String>] [[-Custom03] <String>] [-Suppress] [<CommonParameters>]
+ [[-Custom01] <String>] [[-Custom02] <String>] [[-Custom03] <String>] [-Suppress] [-BulkProcessing] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -72,6 +72,51 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -BulkProcessing
+{{ Fill BulkProcessing Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -City
+{{ Fill City Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 12
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CityHome
+{{ Fill CityHome Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 18
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -CompanyID
 {{ Fill CompanyID Description }}
 
@@ -87,31 +132,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CompanyLogoUrl
-{{ Fill CompanyLogoUrl Description }}
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 27
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -CompanyThumbnailUrl
-{{ Fill CompanyThumbnailUrl Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 28
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -126,7 +156,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 41
+Position: 38
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -171,7 +201,7 @@ Parameter Sets: (All)
 Aliases: CustomAttribute01
 
 Required: False
-Position: 45
+Position: 42
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -186,7 +216,7 @@ Parameter Sets: (All)
 Aliases: CustomAttribute02
 
 Required: False
-Position: 46
+Position: 43
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -201,7 +231,7 @@ Parameter Sets: (All)
 Aliases: CustomAttribute03
 
 Required: False
-Position: 47
+Position: 44
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -216,7 +246,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 39
+Position: 36
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -231,7 +261,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 43
+Position: 40
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -276,7 +306,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 42
+Position: 39
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EmailAddress
+{{ Fill EmailAddress Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 9
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -297,21 +342,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EmailAddressWork
-{{ Fill EmailAddressWork Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 9
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -EmployeeNumber
 {{ Fill EmployeeNumber Description }}
 
@@ -321,7 +351,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 40
+Position: 37
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -381,37 +411,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 30
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Locality
-{{ Fill Locality Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -LocalityHome
-{{ Fill LocalityHome Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 18
+Position: 28
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -426,7 +426,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 38
+Position: 35
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -441,22 +441,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 35
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ManagerReference
-{{ Fill ManagerReference Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 37
+Position: 33
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -471,7 +456,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 36
+Position: 34
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -501,7 +486,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 34
+Position: 32
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -606,7 +591,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 29
+Position: 27
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -667,7 +652,7 @@ Aliases:
 Accepted values: admin, user
 
 Required: False
-Position: 44
+Position: 41
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -742,7 +727,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 31
+Position: 29
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -757,7 +742,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 32
+Position: 30
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -787,7 +772,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 33
+Position: 31
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

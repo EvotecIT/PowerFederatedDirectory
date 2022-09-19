@@ -15,12 +15,15 @@ Locale: en-US
 {{ Fill in the Synopsis }}
 
 ### [Connect-FederatedDirectory](Connect-FederatedDirectory.md)
-{{ Fill in the Synopsis }}
+Connects to a federated directory.
 
 ### [Get-FederatedDirectorySchema](Get-FederatedDirectorySchema.md)
 Get the schema of a federated directory.
 
 ### [Get-FederatedDirectoryUser](Get-FederatedDirectoryUser.md)
+{{ Fill in the Synopsis }}
+
+### [Invoke-FederatedDirectory](Invoke-FederatedDirectory.md)
 {{ Fill in the Synopsis }}
 
 ### [Remove-FederatedDirectoryUser](Remove-FederatedDirectoryUser.md)

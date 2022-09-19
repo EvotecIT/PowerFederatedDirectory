@@ -8,7 +8,7 @@ schema: 2.0.0
 # Connect-FederatedDirectory
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Connects to a federated directory.
 
 ## SYNTAX
 
@@ -25,66 +25,22 @@ Connect-FederatedDirectory -TokenEncrypted <String> [-ExpiresTimeout <Int32>] [-
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Connects to a federated directory.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+$Token = 'TokenInformation'
 ```
 
-{{ Add example description here }}
+Connect-FederatedDirectory -Token $Token -Suppress
 
 ## PARAMETERS
 
-### -ExpiresTimeout
-{{ Fill ExpiresTimeout Description }}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ForceRefresh
-{{ Fill ForceRefresh Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Suppress
-{{ Fill Suppress Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Token
-{{ Fill Token Description }}
+The token to use for authentication to the federated directory from New-JWT command.
+This is the default.
 
 ```yaml
 Type: String
@@ -99,7 +55,7 @@ Accept wildcard characters: False
 ```
 
 ### -TokenEncrypted
-{{ Fill TokenEncrypted Description }}
+The encrypted token to use for authentication to the federated directory from New-JWT command.
 
 ```yaml
 Type: String
@@ -113,16 +69,60 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ExpiresTimeout
+The number of seconds before the token expires.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 30
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ForceRefresh
+Forces a refresh of the authentication
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Suppress
+Suppresses the output of the command.
+By default the command will output the connection information.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
+General notes
 
 ## RELATED LINKS

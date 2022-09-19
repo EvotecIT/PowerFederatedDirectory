@@ -15,19 +15,19 @@ Remove a user from a federated directory.
 ### Id (Default)
 ```
 Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -Id <String[]> [-DirectoryID <String>]
- [<CommonParameters>]
+ [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### User
 ```
 Remove-FederatedDirectoryUser [-Authorization <IDictionary>] [-User] <PSObject[]> [-DirectoryID <String>]
- [<CommonParameters>]
+ [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### UserName
 ```
-Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -UserName <String[]> [-DirectoryID <String>]
- [<CommonParameters>]
+Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -SearchUserName <String[]> [-DirectoryID <String>]
+ [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -104,7 +104,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserName
+### -SearchUserName
 The user name of the user to remove from the federated directory.
 
 ```yaml
@@ -127,6 +127,67 @@ If not specified, the default directory will be used.
 Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -BulkProcessing
+{{ Fill BulkProcessing Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Suppress
+{{ Fill Suppress Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
