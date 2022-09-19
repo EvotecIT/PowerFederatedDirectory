@@ -179,7 +179,7 @@
         }
         Remove-EmptyValue -Hashtable $Headers
         Try {
-            $BatchObjects = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers -ErrorAction Stop #{id}?attributes={attributes}'
+            $BatchObjects = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers -ErrorAction Stop -ContentType 'application/json; charset=utf-8'
         } catch {
             if ($PSBoundParameters.ErrorAction -eq 'Stop') {
                 throw

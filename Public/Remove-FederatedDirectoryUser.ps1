@@ -44,7 +44,8 @@
         [parameter(Mandatory, ParameterSetName = 'Id')][string[]] $Id,
         [parameter(Mandatory, ParameterSetName = 'UserName')][string[]] $SearchUserName,
         [parameter()][string] $DirectoryID,
-        [switch] $BulkProcessing
+        [switch] $BulkProcessing,
+        [switch] $Suppress
     )
     Begin {
         if (-not $Authorization) {
@@ -97,6 +98,7 @@
                             'directoryId'   = $DirectoryID
                         }
                         ErrorAction = 'Stop'
+                        ContentType = 'application/json; charset=utf-8'
                     }
                     Remove-EmptyValue -Hashtable $invokeRestMethodSplat -Recursive
 
@@ -105,7 +107,9 @@
                     }
                     if ($PSCmdlet.ShouldProcess($I, "Removing user")) {
                         $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
-                        $ReturnData
+                        if (-not $Suppress) {
+                            $ReturnData
+                        }
                     }
                 } catch {
                     $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue

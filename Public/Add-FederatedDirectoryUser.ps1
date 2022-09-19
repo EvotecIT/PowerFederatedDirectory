@@ -212,13 +212,24 @@
         Try {
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
 
+            # for troubleshooting
+            if ($VerbosePreference -eq 'Continue') {
+                $Body | ConvertTo-Json -Depth 10 | Write-Verbose
+            }
+
             if ($BulkProcessing) {
                 # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
-                return [ordered] @{
+
+                $ReturnObject = [ordered] @{
                     data   = $Body
                     method = 'POST'
-                    bulkid = $Body.userName
+                    bulkId = $Body.userName
                 }
+                # for troubleshooting
+                if ($VerbosePreference -eq 'Continue') {
+                    $ReturnObject | ConvertTo-Json -Depth 10 | Write-Verbose
+                }
+                return $ReturnObject
             }
             $invokeRestMethodSplat = [ordered] @{
                 Method      = 'POST'
@@ -230,13 +241,10 @@
                 }
                 Body        = $Body | ConvertTo-Json -Depth 10
                 ErrorAction = 'Stop'
+                ContentType = 'application/json; charset=utf-8'
             }
             if ($DirectoryID) {
                 $invokeRestMethodSplat['Headers']['directoryId'] = $DirectoryID
-            }
-            # for troubleshooting
-            if ($VerbosePreference -eq 'Continue') {
-                $Body | ConvertTo-Json -Depth 10 | Write-Verbose
             }
             if ($PSCmdlet.ShouldProcess("username $UserName, displayname $DisplayName", "Adding user")) {
                 $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false

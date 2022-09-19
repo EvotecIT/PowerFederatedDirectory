@@ -82,6 +82,7 @@
                 (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
             }
         } else {
+            Write-Warning -Message "Set-FederatedDirectoryUser - No ID or UserName specified."
             return
         }
         if ($Action -eq 'Update') {
@@ -337,6 +338,7 @@
                 }
                 Body        = $Body | ConvertTo-Json -Depth 10
                 ErrorAction = 'Stop'
+                ContentType = 'application/json; charset=utf-8'
             }
             if ($DirectoryID) {
                 $invokeRestMethodSplat['Headers']['directoryId'] = $DirectoryID
