@@ -1,6 +1,6 @@
 ﻿#### 0.0.3 - 2022.09.19
 - Fixes problem with UTF8 encoding supporting it properly
--
+- Fixes problem with sending in bulk
 
 #### 0.0.2 - 2022.09.16
 - Improvements to commands
