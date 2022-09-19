@@ -87,6 +87,22 @@ Set-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -DisplayNa
 Remove-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -Verbose
 ```
 
+#### Send multiple actions in bulk
+
+This will prepare a list of actins first that then is executed by `Invoke-FederatedDirectory` function
+
+```powershell
+
+```powershell
+$Operations = for ($i = 1; $i -le 100; $i++) {
+    Add-FederatedDirectoryUser -Verbose -UserName "TestNewwwww$i@test.pl" -DisplayName "TestUserNew$i" -ManagerDisplayName 'TestUser' -FamilyName 'Kłys' -GivenName 'Przemysłąw' -BulkProcessing
+    Remove-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -Verbose -BulkProcessing
+    Set-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '50246000' -Verbose -Custom01 'test123' -Action Update -BulkProcessing
+}
+$Response = Invoke-FederatedDirectory -Operations $Operations -Verbose -WhatIf
+$Response | Format-Table *
+```
+
 ### Attributes
 
 The attributes, filter and sortBy parameters can be configured by the below list of attributes.
