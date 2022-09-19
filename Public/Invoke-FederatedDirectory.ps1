@@ -18,7 +18,7 @@
         }
     }
     if ($Authorization) {
-        [Array] $SplitOperations = Split-Array -Objects $Operations -Size 5
+        $SplitOperations = Split-Array -Objects $Operations -Size 999
         foreach ($O in $SplitOperations) {
             $Body = [ordered] @{
                 schemas    = @('urn:ietf:params:scim:api:messages:2.0:BulkRequest')
