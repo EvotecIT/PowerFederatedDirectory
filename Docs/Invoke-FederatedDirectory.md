@@ -8,7 +8,8 @@ schema: 2.0.0
 # Invoke-FederatedDirectory
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Provides a way to invoke multiple operations on FederatedDirectory in a single request (bulk).
+While the official limit is 1000 operations in a single request
 
 ## SYNTAX
 
@@ -18,54 +19,22 @@ Invoke-FederatedDirectory [[-Authorization] <IDictionary>] [[-Operations] <Array
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Long description
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
 ```
-
-{{ Add example description here }}
+An example
+```
 
 ## PARAMETERS
 
 ### -Authorization
-{{ Fill Authorization Description }}
+Parameter description
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Operations
-{{ Fill Operations Description }}
-
-```yaml
-Type: Array
 Parameter Sets: (All)
 Aliases:
 
@@ -76,38 +45,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ReturnHashtable
-{{ Fill ReturnHashtable Description }}
+### -Operations
+Parameter description
 
 ```yaml
-Type: SwitchParameter
+Type: Array
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ReturnNative
-{{ Fill ReturnNative Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Size
-{{ Fill Size Description }}
+Parameter description
 
 ```yaml
 Type: Int32
@@ -115,8 +69,38 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: None
+Position: 3
+Default value: 100
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ReturnHashtable
+Parameter description
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ReturnNative
+Parameter description
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -137,16 +121,29 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
+General notes
 
 ## RELATED LINKS

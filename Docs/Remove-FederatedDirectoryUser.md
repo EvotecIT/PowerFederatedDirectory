@@ -38,23 +38,20 @@ Remove a user from a federated directory.
 ### EXAMPLE 1
 ```
 # remove specific user id
-```
-
 Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose
+```
 
 ### EXAMPLE 2
 ```
 # get all ther users that contain name test user and delete them
-```
-
 Remove-FederatedDirectoryUser -UserName 'testuser' -Verbose
+```
 
 ### EXAMPLE 3
 ```
 # get all ther users that contain name test user and delete them
-```
-
 Get-FederatedDirectoryUser -UserName 'testuser' | Remove-FederatedDirectoryUser -Verbose
+```
 
 ## PARAMETERS
 

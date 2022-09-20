@@ -32,9 +32,8 @@ Connects to a federated directory.
 ### EXAMPLE 1
 ```
 $Token = 'TokenInformation'
-```
-
 Connect-FederatedDirectory -Token $Token -Suppress
+```
 
 ## PARAMETERS
 
