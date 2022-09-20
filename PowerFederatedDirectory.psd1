@@ -8,7 +8,7 @@
     Description          = 'PowerShell module to interact with Federated Directory service which allows to group employees from different corporate address books into a federated directory.'
     FunctionsToExport    = @('Add-FederatedDirectoryUser', 'Connect-FederatedDirectory', 'Get-FederatedDirectorySchema', 'Get-FederatedDirectoryUser', 'Invoke-FederatedDirectory', 'Remove-FederatedDirectoryUser', 'Set-FederatedDirectoryUser')
     GUID                 = 'b73875b9-d87b-4a10-8cb5-0980d180c05b'
-    ModuleVersion        = '0.0.3'
+    ModuleVersion        = '0.0.4'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
