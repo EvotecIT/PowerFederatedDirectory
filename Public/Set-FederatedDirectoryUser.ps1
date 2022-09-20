@@ -50,7 +50,7 @@
         [string] $CostCenter,
         [string] $Division,
         [string] $Description,
-        [ValidateSet('admin', 'user')][string] $Role,
+        [ValidateSet('admin', 'user', 'contact')][string] $Role,
         [alias('CustomAttribute01')][string] $Custom01,
         [alias('CustomAttribute02')][string] $Custom02,
         [alias('CustomAttribute03')][string] $Custom03,
@@ -197,14 +197,14 @@
                 "profileUrl"                                                 = $ProfileUrl
                 "emails"                                                     = @(
                     if ($EmailAddress) {
-                        @{
+                        [ordered]@{
                             "value"   = $EmailAddress
                             "type"    = "work"
                             "primary" = $true
                         }
                     }
                     if ($EmailAddressHome) {
-                        @{
+                        [ordered]@{
                             "value" = $EmailAddressHome
                             "type"  = "home"
                         }
@@ -212,7 +212,7 @@
                 )
                 "addresses"                                                  = @(
                     if ($StreetAddress -or $Locality -or $Region -or $PostalCode -or $Country) {
-                        @{
+                        $StreetHash = [ordered]@{
                             "streetAddress" = $StreetAddress
                             "locality"      = $Locality
                             "region"        = $Region
@@ -221,9 +221,11 @@
                             "type"          = "work"
                             "primary"       = $true
                         }
+                        Remove-EmptyValue -Hashtable $StreetHash
+                        if ($StreetHash) { $StreetHash }
                     }
                     if ($StreetAddressHome -or $LocalityHome -or $RegionHome -or $PostalCodeHome -or $CountryHome) {
-                        @{
+                        $StreetHash = [ordered]@{
                             "streetAddress" = $StreetAddressHome
                             "locality"      = $LocalityHome
                             "region"        = $RegionHome
@@ -231,24 +233,26 @@
                             "country"       = $CountryHome
                             "type"          = "home"
                         }
+                        Remove-EmptyValue -Hashtable $StreetHash
+                        if ($StreetHash) { $StreetHash }
                     }
                 )
                 "phoneNumbers"                                               = @(
                     if ($PhoneNumberWork) {
-                        @{
+                        [ordered]@{
                             "value"   = $PhoneNumberWork
                             "type"    = "work"
                             "primary" = $true
                         }
                     }
                     if ($PhoneNumberHome) {
-                        @{
+                        [ordered]@{
                             "value" = $PhoneNumberHome
                             "type"  = "home"
                         }
                     }
                     if ($PhoneNumberMobile) {
-                        @{
+                        [ordered]@{
                             "value" = $PhoneNumberMobile
                             "type"  = "mobile"
                         }
@@ -256,13 +260,13 @@
                 )
                 "photos"                                                     = @(
                     if ($PhotoUrl) {
-                        @{
+                        [ordered]@{
                             "value" = $PhotoUrl
                             "type"  = "photo"
                         }
                     }
                     if ($ThumbnailUrl) {
-                        @{
+                        [ordered]@{
                             "value" = $ThumbnailUrl
                             "type"  = "thumbnail"
                         }
@@ -276,9 +280,16 @@
                 "title"                                                      = $Title
                 "active"                                                     = if ($PSBoundParameters.Keys -contains ('Active')) { $Active.IsPresent } else { $Null }
                 "roles"                                                      = @(
-                    @{
-                        "value"   = $Role
-                        "display" = $Role
+                    if ($Role) {
+                        @{
+                            "value"   = $Role
+                            "display" = $Role
+                        }
+                    } else {
+                        #@{
+                        #    "value"   = 'user'
+                        #    "display" = 'user'
+                        #}
                     }
                 )
                 "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
@@ -317,15 +328,19 @@
             }
         }
         Try {
-            Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
+            Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 3
 
             $MethodChosen = if ($Action -eq 'Update') { 'PATCH' } else { 'PUT' }
             if ($BulkProcessing) {
                 # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
-                return [ordered] @{
-                    data   = $Body
-                    method = $MethodChosen
-                    bulkid = $Body.id
+                if ($Action -eq 'Update') {
+                    Write-Warning -Message "Bulk processing is not supported for Update action. Only Overwrite action is supported. Change action to Overwrite or don't use bulk processing for updates."
+                } else {
+                    return [ordered] @{
+                        data   = $Body
+                        method = $MethodChosen
+                        bulkId = $SetID
+                    }
                 }
             }
             $invokeRestMethodSplat = [ordered] @{
