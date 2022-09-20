@@ -4,6 +4,7 @@ $Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedD
 
 Connect-FederatedDirectory -Token $Token -Suppress
 
-#Set-FederatedDirectoryUser -Id '11105df0-31cf-11ed-ada4-2bbc677ce86d' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Verbose -Custom01 'test123' -Action Update
+#Set-FederatedDirectoryUser -Id '69c6b3c0-34dd-11ed-a621-4b6b819dffa2' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Verbose -Custom01 'test123' -Action Update
+Set-FederatedDirectoryUser -Id '69c6b3c0-34dd-11ed-a621-4b6b819dffa2' -DisplayName 'New name' -GivenName "Test" -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Verbose -Custom01 'test123' -UserName 'TestMe@verymuch.pl' -Action Overwrite -StreetAddress "Test me"
 
-Set-FederatedDirectoryUser -SearchUserName 'BringFood@test.pl' -Verbose -WhatIf -Custom01 'test123'
+#Set-FederatedDirectoryUser -SearchUserName 'BringFood@test.pl' -Verbose -Custom01 'test123'
