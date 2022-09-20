@@ -9,7 +9,6 @@ schema: 2.0.0
 
 ## SYNOPSIS
 Provides a way to invoke multiple operations on FederatedDirectory in a single request (bulk).
-While the official limit is 1000 operations in a single request
 
 ## SYNTAX
 
@@ -19,19 +18,30 @@ Invoke-FederatedDirectory [[-Authorization] <IDictionary>] [[-Operations] <Array
 ```
 
 ## DESCRIPTION
-Long description
+Provides a way to invoke multiple operations on FederatedDirectory in a single request (bulk).
+While the official limit is 1000 operations in a single request, it's actually much lower due to payload size
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-An example
+Connect-FederatedDirectory -Token $Token -Suppress
 ```
+
+$Operations = for ($i = 1; $i -le 1; $i++) {
+    Add-FederatedDirectoryUser -UserName "TestNewwwww$i@test.pl" -DisplayName "TestUserNew$i" -ManagerDisplayName 'TestUser' -FamilyName 'Kłys' -GivenName 'Przemysłąw' -BulkProcessing
+    #Set-FederatedDirectoryUser -Id '69c6b3c0-34dd-11ed-a621-4b6b819dffa2' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Custom01 'test123' -Action Update -BulkProcessing
+    Set-FederatedDirectoryUser -Id '0c50c6f0-3428-11ed-98e2-11027423d1f1' -DisplayName 'New name' -GivenName "Test" -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Custom01 'test123' -UserName 'TestMe@verymuch.pl' -Action Overwrite -StreetAddress "Test me" -BulkProcessing
+    Set-FederatedDirectoryUser -Id '69c6b3c0-34dd-11ed-a621-4b6b819dffa2' -DisplayName 'New name' -GivenName "Test" -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Custom01 'test123' -UserName 'TestMe@verymuch.pl' -Action Overwrite -StreetAddress "Test me" -BulkProcessing
+}
+$Response = Invoke-FederatedDirectory -Operations $Operations -ReturnHashtable
+$Response | Format-Table
 
 ## PARAMETERS
 
 ### -Authorization
-Parameter description
+The authorization identity to use for the request from Connect-FederatedDirectory.
+If not specified, the default authorization identity will be used.
 
 ```yaml
 Type: IDictionary
@@ -46,7 +56,7 @@ Accept wildcard characters: False
 ```
 
 ### -Operations
-Parameter description
+Operations to perform as part of bulk request
 
 ```yaml
 Type: Array
@@ -61,7 +71,8 @@ Accept wildcard characters: False
 ```
 
 ### -Size
-Parameter description
+Batch size of operations to send in a single request.
+Default is 100.
 
 ```yaml
 Type: Int32
@@ -76,7 +87,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReturnHashtable
-Parameter description
+Return results as a hashtable for quick matching BulkId
 
 ```yaml
 Type: SwitchParameter
@@ -91,7 +102,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReturnNative
-Parameter description
+Return results the same way REST API returns it
 
 ```yaml
 Type: SwitchParameter

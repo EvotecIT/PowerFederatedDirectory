@@ -25,7 +25,6 @@ Get the schema of a federated directory.
 
 ### [Invoke-FederatedDirectory](Invoke-FederatedDirectory.md)
 Provides a way to invoke multiple operations on FederatedDirectory in a single request (bulk).
-While the official limit is 1000 operations in a single request
 
 ### [Remove-FederatedDirectoryUser](Remove-FederatedDirectoryUser.md)
 Remove a user from a federated directory.
