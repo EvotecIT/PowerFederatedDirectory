@@ -84,75 +84,85 @@
                 Operations = $O
             }
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
+
+            $invokeRestMethodSplat = [ordered] @{
+                Method      = 'POST'
+                Uri         = 'https://api.federated.directory/v2/Bulk'
+                Headers     = [ordered]  @{
+                    'Content-Type'  = 'application/json; charset=utf-8'
+                    'Authorization' = $Authorization.Authorization
+                    'Cache-Control' = 'no-cache'
+                }
+                Body        = $Body | ConvertTo-Json -Depth 10
+                ErrorAction = 'Stop'
+                ContentType = 'application/json; charset=utf-8'
+            }
+            if ($DirectoryID) {
+                $invokeRestMethodSplat['Headers']['directoryId'] = $DirectoryID
+            }
+            # for troubleshooting
+            if ($VerbosePreference -eq 'Continue') {
+                $Body | ConvertTo-Json -Depth 10 | Write-Verbose
+            }
             Try {
-                $invokeRestMethodSplat = [ordered] @{
-                    Method      = 'POST'
-                    Uri         = 'https://api.federated.directory/v2/Bulk'
-                    Headers     = [ordered]  @{
-                        'Content-Type'  = 'application/json; charset=utf-8'
-                        'Authorization' = $Authorization.Authorization
-                        'Cache-Control' = 'no-cache'
-                    }
-                    Body        = $Body | ConvertTo-Json -Depth 10
-                    ErrorAction = 'Stop'
-                    ContentType = 'application/json; charset=utf-8'
-                }
-                if ($DirectoryID) {
-                    $invokeRestMethodSplat['Headers']['directoryId'] = $DirectoryID
-                }
-                # for troubleshooting
-                if ($VerbosePreference -eq 'Continue') {
-                    $Body | ConvertTo-Json -Depth 10 | Write-Verbose
-                }
                 if ($PSCmdlet.ShouldProcess("Federated Directory", "Bulk sending $($O.Count) operations")) {
                     $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false
                     # don't return data as we trust it's been created
-                    if (-not $Suppress) {
-                        if ($ReturnNative) {
-                            $ReturnData.Operations
-                        } elseif ($ReturnHashtable) {
-                            $ResultsPrepared = [ordered] @{}
-                            foreach ($Operation in $ReturnData.Operations) {
-                                $ResultsPrepared[$Operation.bulkid] = [PSCustomObject] @{
-                                    BulkID         = $Operation.bulkid
-                                    Method         = $TranslateMethod[$Operation.method]
-                                    Status         = $TranslateStatus[$Operation.status.ToString()]
-                                    StatusResponse = $Operation.status
-                                    Detail         = $Operation.response.detail
-                                    ScimType       = $Operation.response.scimType
-                                    Location       = $Operation.location
-
-                                }
-                            }
-                            $ResultsPrepared
-                        } else {
-                            foreach ($Operation in $ReturnData.Operations) {
-                                [PSCustomObject] @{
-                                    BulkID         = $Operation.bulkid
-                                    Method         = $TranslateMethod[$Operation.method]
-                                    Status         = $TranslateStatus[$Operation.status.ToString()]
-                                    StatusResponse = $Operation.status
-                                    Detail         = $Operation.response.detail
-                                    ScimType       = $Operation.response.scimType
-                                    Location       = $Operation.location
-                                }
-                            }
-                        }
-                    }
                 }
-                # # for troubleshooting
-                # if ($VerbosePreference -eq 'Continue') {
-                #     $invokeRestMethodSplat.Remove('body')
-                #     $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
-                # }
             } catch {
                 if ($PSBoundParameters.ErrorAction -eq 'Stop') {
                     throw
                 } else {
                     $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
-                    Write-Warning -Message "Invoke-FederatedDirectory - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                    Write-Warning -Message "Invoke-FederatedDirectory - Error processing $($_.Exception.Message), $($ErrorDetails.Detail)"
                 }
             }
+
+            if ($ReturnData -and -not $Suppress) {
+                if ($ReturnNative) {
+                    $ReturnData.Operations
+                } elseif ($ReturnHashtable) {
+                    $ResultsPrepared = [ordered] @{}
+                    foreach ($Operation in $ReturnData.Operations) {
+                        if ($Operation.method -and $Operation.status) {
+                            $ResultsPrepared[$Operation.bulkid] = [PSCustomObject] @{
+                                BulkID         = $Operation.bulkid
+                                Method         = $TranslateMethod[$Operation.method]
+                                Status         = $TranslateStatus[$Operation.status.code.ToString()]
+                                StatusResponse = $Operation.status.code
+                                Detail         = $Operation.response.detail
+                                ScimType       = $Operation.response.scimType
+                                Location       = $Operation.location
+
+                            }
+                        } else {
+                            Write-Warning -Message "Invoke-FederatedDirectory - Error processing, wrong return code. Error: $($Operation.details.message)"
+                        }
+                    }
+                    $ResultsPrepared
+                } else {
+                    foreach ($Operation in $ReturnData.Operations) {
+                        if ($Operation.method -and $Operation.status) {
+                            [PSCustomObject] @{
+                                BulkID         = $Operation.bulkid
+                                Method         = $TranslateMethod[$Operation.method]
+                                Status         = $TranslateStatus[$Operation.status.code.ToString()]
+                                StatusResponse = $Operation.status.code
+                                Detail         = $Operation.response.detail
+                                ScimType       = $Operation.response.scimType
+                                Location       = $Operation.location
+                            }
+                        } else {
+                            Write-Warning -Message "Invoke-FederatedDirectory - Error processing, wrong return code. Error: $($Operation.details.message)"
+                        }
+                    }
+                }
+            }
+            # # for troubleshooting
+            # if ($VerbosePreference -eq 'Continue') {
+            #     $invokeRestMethodSplat.Remove('body')
+            #     $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
+            # }
         }
     } else {
         Write-Warning -Message 'Invoke-FederatedDirectory - No authorization found. Please make sure to use Connect-FederatedDirectory first.'
