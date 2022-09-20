@@ -211,10 +211,10 @@
                     }
                 )
                 "addresses"                                                  = @(
-                    if ($StreetAddress -or $Locality -or $Region -or $PostalCode -or $Country) {
+                    if ($StreetAddress -or $City -or $Region -or $PostalCode -or $Country) {
                         $StreetHash = [ordered]@{
                             "streetAddress" = $StreetAddress
-                            "locality"      = $Locality
+                            "locality"      = $City
                             "region"        = $Region
                             "postalCode"    = $PostalCode
                             "country"       = $Country
@@ -224,10 +224,10 @@
                         Remove-EmptyValue -Hashtable $StreetHash
                         if ($StreetHash) { $StreetHash }
                     }
-                    if ($StreetAddressHome -or $LocalityHome -or $RegionHome -or $PostalCodeHome -or $CountryHome) {
+                    if ($StreetAddressHome -or $CityHome -or $RegionHome -or $PostalCodeHome -or $CountryHome) {
                         $StreetHash = [ordered]@{
                             "streetAddress" = $StreetAddressHome
-                            "locality"      = $LocalityHome
+                            "locality"      = $CityHome
                             "region"        = $RegionHome
                             "postalCode"    = $PostalCodeHome
                             "country"       = $CountryHome
