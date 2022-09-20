@@ -85,7 +85,7 @@
                                 id      = $I
                             }
                             method = 'DELETE'
-                            bulkid = $I
+                            bulkId = $I
                         }
                     }
                     $invokeRestMethodSplat = [ordered] @{
