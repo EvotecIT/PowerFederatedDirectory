@@ -144,7 +144,7 @@ $Configuration = @{
             RefreshPSD1Only  = $false
         }
         BuildDocumentation = @{
-            Enable        = $false # enables documentation processing
+            Enable        = $true # enables documentation processing
             StartClean    = $true # always starts clean
             UpdateWhenNew = $true # always updates right after new
         }
