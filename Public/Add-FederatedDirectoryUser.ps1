@@ -168,9 +168,11 @@
             "title"                                                      = $Title
             "active"                                                     = if ($PSBoundParameters.Keys -contains ('Active')) { $Active.IsPresent } else { $Null }
             "roles"                                                      = @(
-                @{
-                    "value"   = $Role
-                    "display" = $Role
+                if ($Role) {
+                    @{
+                        "value"   = $Role
+                        "display" = $Role
+                    }
                 }
             )
             "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = [ordered] @{
