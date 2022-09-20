@@ -711,7 +711,7 @@ Accept wildcard characters: False
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: admin, user
+Accepted values: admin, user, contact
 
 Required: False
 Position: 45
