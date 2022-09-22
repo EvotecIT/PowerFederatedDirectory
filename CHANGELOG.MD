@@ -1,4 +1,7 @@
-﻿#### 0.0.3 - 2022.09.19
+﻿#### 0.0.4 - 2022.09.22
+- Fixes an issue with EncryptedSecret
+
+#### 0.0.3 - 2022.09.19
 - Fixes problem with UTF8 encoding supporting it properly
 - Fixes problem with sending in bulk
 
