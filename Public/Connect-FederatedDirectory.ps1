@@ -49,7 +49,7 @@
 
     if ($TokenEncrypted) {
         try {
-            $ApplicationKeyTemp = $ClientSecretEncrypted | ConvertTo-SecureString -ErrorAction Stop
+            $ApplicationKeyTemp = $TokenEncrypted | ConvertTo-SecureString -ErrorAction Stop
         } catch {
             if ($PSBoundParameters.ErrorAction -eq 'Stop') {
                 throw
