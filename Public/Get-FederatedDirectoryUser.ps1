@@ -4,11 +4,50 @@
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $Id,
-        [Alias('SearchUserName')][string] $UserName,
+        [Alias('UserName')][string] $SearchUserName,
+        [Alias('ExternalID')][string] $SearchExternalID,
+        [string] $Search,
+        [ValidateSet(
+            'id',
+            'externalId',
+            'userName',
+            'givenName',
+            'familyName',
+            'displayName',
+            'nickName',
+            'profileUrl',
+            'title',
+            'userType',
+            'emails',
+            'phoneNumbers',
+            'addresses',
+            'preferredLanguage',
+            'locale',
+            'timezone',
+            'active',
+            'groups',
+            'roles',
+            'meta',
+            'organization',
+            'employeeNumber',
+            'costCenter',
+            'division',
+            'department',
+            'manager',
+            'description',
+            'directoryId',
+            'companyId',
+            'companyLogos',
+            'custom01',
+            'custom02',
+            'custom03'
+        )]
+        [string] $SearchProperty = 'userName',
+        [string] $SearchOperator = 'eq',
         [string] $DirectoryID,
         [int] $MaxResults,
         [int] $StartIndex = 1,
-        [int] $Count = 50,
+        [int] $Count = 1000,
         [string] $Filter,
         [ValidateSet(
             'id',
@@ -155,9 +194,13 @@
         $QueryParameter = [ordered] @{
             count      = if ($Count) { $Count } else { $null }
             startIndex = if ($StartIndex) { $StartIndex } else { $null }
-            filter     = if ($UserName) {
+            filter     = if ($SearchUserName) {
                 # keep in mind regardless of used operator it will always revert back to co as per API (weird)
-                "userName co $UserName"
+                "userName eq $SearchUserName"
+            } elseif ($SearchExternalID) {
+                "externalId eq $SearchExternalID"
+            } elseif ($Search -and $SearchProperty) {
+                "$($ConvertAttributes[$SearchProperty]) $SearchOperator $Search"
             } else {
                 $Filter
             }
@@ -247,47 +290,3 @@
         Write-Warning -Message 'Get-FederatedDirectoryUser - No authorization found. Please make sure to use Connect-FederatedDirectory first.'
     }
 }
-
-# $Script:AttributesList = @(
-#     'id',
-#     'externalId',
-#     'userName',
-#     'givenName',
-#     'familyName',
-#     'displayName',
-#     'nickName',
-#     'profileUrl',
-#     'title',
-#     'userType',
-#     'emails',
-#     'phoneNumbers',
-#     'addresses',
-#     'preferredLanguage',
-#     'locale',
-#     'timezone',
-#     'active',
-#     'groups',
-#     'roles',
-#     'meta',
-#     'organization',
-#     'employeeNumber',
-#     'costCenter',
-#     'division',
-#     'department',
-#     'manager',
-#     'description',
-#     'directoryId',
-#     'companyId',
-#     'companyLogos'
-#     'custom01',
-#     'custom02',
-#     'custom03'
-# )
-
-# $Script:ScriptBlockAttributes = {
-#     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-#     $Script:AttributesList | Where-Object { $_ -like "*$wordToComplete*" }
-# }
-
-# Register-ArgumentCompleter -CommandName Get-FederatedDirectoryUser -ParameterName Attributes -ScriptBlock $Script:ScriptBlockAttributes
-# Register-ArgumentCompleter -CommandName Get-FederatedDirectoryUser -ParameterName SortBy -ScriptBlock $Script:ScriptBlockAttributes
