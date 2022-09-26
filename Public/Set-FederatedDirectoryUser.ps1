@@ -85,6 +85,10 @@
             Write-Warning -Message "Set-FederatedDirectoryUser - No ID or UserName specified."
             return
         }
+        if ($ManagerUserName) {
+            $ManagerID = (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $ManagerUserName).Id
+        }
+
         if ($Action -eq 'Update') {
             $TranslatePath = @{
                 UserName           = "userName"
@@ -125,9 +129,9 @@
                 Division           = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:division'
                 Department         = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department'
                 Organization       = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:organization'
-                ManagerID          = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
-                ManagerUserName    = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.value'
-                ManagerDisplayName = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:manager.displayName'
+                ManagerID          = 'manager'
+                ManagerUserName    = 'manager'
+                ManagerDisplayName = 'manager'
                 Description        = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:description"
                 Custom01           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom01"
                 Custom02           = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:custom02"
@@ -135,10 +139,6 @@
                 CompanyID          = "urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyId"
                 #CompanyLogoUrl      = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "logo"].value'
                 #CompanyThumbnailUrl = 'urn:ietf:params:scim:schemas:extension:fd:2.0:User:companyLogos[type eq "thumbnail"].value'
-            }
-
-            if ($ManagerUserName) {
-                $ManagerID = (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $ManagerUserName).Id
             }
 
             $Body = [ordered] @{
@@ -154,7 +154,15 @@
                                 $Path = $Key
                             }
                             if ($PSBoundParameters[$Key]) {
-                                $Value = $PSBoundParameters[$Key]
+                                if ($ManagerUserName) {
+                                    $Value = $ManagerID
+                                } elseif ($ManagerDisplayName) {
+                                    $Value = @{
+                                        displayName = $ManagerDisplayName
+                                    }
+                                } else {
+                                    $Value = $PSBoundParameters[$Key]
+                                }
                             } else {
                                 $Value = $null
                             }
