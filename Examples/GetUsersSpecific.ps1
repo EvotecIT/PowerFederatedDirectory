@@ -2,7 +2,7 @@
 
 $Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedDirectory.txt'
 
-Connect-FederatedDirectory -Token $Token -Suppress -Verbose
+Connect-FederatedDirectory -Token $Token -Suppress
 
 $Attributes = @(
     'id'
@@ -38,11 +38,11 @@ $Attributes = @(
     'custom01'
     'custom02'
     'custom03'
-    'meta'
 )
 
-Get-FederatedDirectoryUser -Verbose -Attributes $Attributes -UserName 'BringFood@test.pl' | Format-List *
-Get-FederatedDirectoryUser -Verbose -Attributes $Attributes -SearchExternalID 'vk3e' | Format-List *
-Get-FederatedDirectoryUser -Id 'd0795a50-300f-11ed-8f66-67bf21b5dbc9' -Verbose | Format-List *
-Get-FederatedDirectoryUser -Verbose -Attributes $Attributes -SearchUserName 'BringFood@test.pl' | Format-List *
-Get-FederatedDirectoryUser -SearchUserName 'me@e.pl' -Attributes $Attributes | Format-List *
+
+$Users = Get-FederatedDirectoryUser -Verbose -SearchExternalID 've' -Attributes $Attributes
+$Users | Format-Table
+
+$Users = Get-FederatedDirectoryUser -Verbose -SearchUserName 've' -Attributes $Attributes
+$Users | Format-Table
