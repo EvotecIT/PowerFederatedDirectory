@@ -1,4 +1,9 @@
-﻿#### 0.0.4 - 2022.09.22
+﻿#### 0.0.5 - 2022.09.26
+- Improved documentation
+- Fixed issues with manager
+- Added `All` switch to `Remove-FedereatedDirectoryUser` to remove all users from FD at once
+
+#### 0.0.4 - 2022.09.22
 - Fixes an issue with EncryptedSecret
 
 #### 0.0.3 - 2022.09.19
