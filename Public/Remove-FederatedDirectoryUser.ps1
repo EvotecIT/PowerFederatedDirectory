@@ -21,6 +21,9 @@
     .PARAMETER DirectoryID
     The id of the directory to remove the user from. If not specified, the default directory will be used.
 
+    .PARAMETER All
+    Remove all users from the directory.
+
     .EXAMPLE
      # remove specific user id
     Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose
@@ -45,7 +48,8 @@
         [parameter(Mandatory, ParameterSetName = 'UserName')][string[]] $SearchUserName,
         [parameter()][string] $DirectoryID,
         [switch] $BulkProcessing,
-        [switch] $Suppress
+        [switch] $Suppress,
+        [parameter(ParameterSetName = 'All')][switch] $All
     )
     Begin {
         if (-not $Authorization) {
@@ -64,59 +68,68 @@
     }
     Process {
         if ($Authorization) {
-            if ($Id) {
-                $RemoveID = $Id
-            } elseif ($User) {
-                $RemoveID = $User.Id
-            } elseif ($SearchUserName) {
-                $RemoveID = Foreach ($U in $SearchUserName) {
-                    (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
+            if ($All) {
+                # lets simplify this for all
+                $Users = Get-FederatedDirectoryUser -Authorization $Authorization -DirectoryID $DirectoryID
+                $Remove = foreach ($U in $Users) {
+                    Remove-FederatedDirectoryUser -Authorization $Authorization -Id $U.Id -BulkProcessing -DirectoryID $DirectoryID
                 }
+                Invoke-FederatedDirectory -Authorization $Authorization -Operations $Remove -Suppress:$Suppress.IsPresent
             } else {
-                return
-            }
-            foreach ($I in $RemoveID) {
-                Try {
-                    if ($BulkProcessing) {
-                        # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
-                        return [ordered] @{
-                            data   = @{
-                                schemas = @("urn:ietf:params:scim:schemas:core:2.0:User")
-                                id      = $I
+                if ($Id) {
+                    $RemoveID = $Id
+                } elseif ($User) {
+                    $RemoveID = $User.Id
+                } elseif ($SearchUserName) {
+                    $RemoveID = Foreach ($U in $SearchUserName) {
+                    (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
+                    }
+                } else {
+                    return
+                }
+                foreach ($I in $RemoveID) {
+                    Try {
+                        if ($BulkProcessing) {
+                            # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
+                            return [ordered] @{
+                                data   = @{
+                                    schemas = @("urn:ietf:params:scim:schemas:core:2.0:User")
+                                    id      = $I
+                                }
+                                method = 'DELETE'
+                                bulkId = $I
                             }
-                            method = 'DELETE'
-                            bulkId = $I
                         }
-                    }
-                    $invokeRestMethodSplat = [ordered] @{
-                        Method      = 'DELETE'
-                        Uri         = "https://api.federated.directory/v2/Users/$I"
-                        Headers     = [ordered]  @{
-                            'Content-Type'  = 'application/json'
-                            'Authorization' = $Authorization.Authorization
-                            'Cache-Control' = 'no-cache'
-                            'directoryId'   = $DirectoryID
+                        $invokeRestMethodSplat = [ordered] @{
+                            Method      = 'DELETE'
+                            Uri         = "https://api.federated.directory/v2/Users/$I"
+                            Headers     = [ordered]  @{
+                                'Content-Type'  = 'application/json'
+                                'Authorization' = $Authorization.Authorization
+                                'Cache-Control' = 'no-cache'
+                                'directoryId'   = $DirectoryID
+                            }
+                            ErrorAction = 'Stop'
+                            ContentType = 'application/json; charset=utf-8'
                         }
-                        ErrorAction = 'Stop'
-                        ContentType = 'application/json; charset=utf-8'
-                    }
-                    Remove-EmptyValue -Hashtable $invokeRestMethodSplat -Recursive
+                        Remove-EmptyValue -Hashtable $invokeRestMethodSplat -Recursive
 
-                    if ($VerbosePreference -eq 'Continue') {
-                        $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
-                    }
-                    if ($PSCmdlet.ShouldProcess($I, "Removing user")) {
-                        $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
-                        if (-not $Suppress) {
-                            $ReturnData
+                        if ($VerbosePreference -eq 'Continue') {
+                            $invokeRestMethodSplat | ConvertTo-Json -Depth 10 | Write-Verbose
                         }
-                    }
-                } catch {
-                    $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
-                    if ($ErrorDetails.Detail -like "*not found*") {
-                        Write-Warning -Message "Remove-FederatedDirectoryUser - $($ErrorDetails.Detail)."
-                    } else {
-                        Write-Warning -Message "Remove-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                        if ($PSCmdlet.ShouldProcess($I, "Removing user")) {
+                            $ReturnData = Invoke-RestMethod @invokeRestMethodSplat
+                            if (-not $Suppress) {
+                                $ReturnData
+                            }
+                        }
+                    } catch {
+                        $ErrorDetails = $_.ErrorDetails.Message | ConvertFrom-Json -ErrorAction SilentlyContinue
+                        if ($ErrorDetails.Detail -like "*not found*") {
+                            Write-Warning -Message "Remove-FederatedDirectoryUser - $($ErrorDetails.Detail)."
+                        } else {
+                            Write-Warning -Message "Remove-FederatedDirectoryUser - Error $($_.Exception.Message), $($ErrorDetails.Detail)"
+                        }
                     }
                 }
             }
