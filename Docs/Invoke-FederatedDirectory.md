@@ -104,6 +104,9 @@ Accept wildcard characters: False
 ### -ReturnNative
 Return results the same way REST API returns it
 
+PARAMETER Suppress
+Prevent returning results
+
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
