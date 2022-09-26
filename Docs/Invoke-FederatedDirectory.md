@@ -14,7 +14,7 @@ Provides a way to invoke multiple operations on FederatedDirectory in a single r
 
 ```
 Invoke-FederatedDirectory [[-Authorization] <IDictionary>] [[-Operations] <Array>] [[-Size] <Int32>]
- [-ReturnHashtable] [-ReturnNative] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ReturnHashtable] [-ReturnNative] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,7 +81,7 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: 100
+Default value: 1000
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -103,6 +103,21 @@ Accept wildcard characters: False
 
 ### -ReturnNative
 Return results the same way REST API returns it
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Suppress
+{{ Fill Suppress Description }}
 
 ```yaml
 Type: SwitchParameter

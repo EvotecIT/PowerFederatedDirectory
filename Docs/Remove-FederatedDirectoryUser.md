@@ -30,6 +30,12 @@ Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -SearchUserName <St
  [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+### All
+```
+Remove-FederatedDirectoryUser [-Authorization <IDictionary>] [-DirectoryID <String>] [-BulkProcessing]
+ [-Suppress] [-All] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 Remove a user from a federated directory.
 
@@ -156,6 +162,21 @@ Accept wildcard characters: False
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -All
+Remove all users from the directory.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: All
 Aliases:
 
 Required: False

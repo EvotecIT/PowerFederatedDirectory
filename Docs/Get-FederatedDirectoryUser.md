@@ -13,7 +13,8 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Get-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-Id] <String>] [[-UserName] <String>]
+Get-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-Id] <String>] [[-SearchUserName] <String>]
+ [[-SearchExternalID] <String>] [[-Search] <String>] [[-SearchProperty] <String>] [[-SearchOperator] <String>]
  [[-DirectoryID] <String>] [[-MaxResults] <Int32>] [[-StartIndex] <Int32>] [[-Count] <Int32>]
  [[-Filter] <String>] [[-SortBy] <String>] [[-SortOrder] <String>] [[-Attributes] <String[]>] [-Native]
  [<CommonParameters>]
@@ -43,7 +44,7 @@ Aliases: Property
 Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
 
 Required: False
-Position: 10
+Position: 14
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -73,7 +74,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 10
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -88,7 +89,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: 7
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -103,7 +104,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: 11
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -133,7 +134,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: 8
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -154,6 +155,82 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Search
+{{ Fill Search Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchExternalID
+{{ Fill SearchExternalID Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: ExternalID
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchOperator
+{{ Fill SearchOperator Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchProperty
+{{ Fill SearchProperty Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchUserName
+{{ Fill SearchUserName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: UserName
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -SortBy
 {{ Fill SortBy Description }}
 
@@ -164,7 +241,7 @@ Aliases:
 Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
 
 Required: False
-Position: 8
+Position: 12
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -180,7 +257,7 @@ Aliases:
 Accepted values: ascending, descending
 
 Required: False
-Position: 9
+Position: 13
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -195,22 +272,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -UserName
-{{ Fill UserName Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: SearchUserName
-
-Required: False
-Position: 2
+Position: 9
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
