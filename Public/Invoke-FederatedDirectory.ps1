@@ -22,6 +22,9 @@
     .PARAMETER ReturnNative
     Return results the same way REST API returns it
 
+    PARAMETER Suppress
+    Prevent returning results
+
     .EXAMPLE
     Connect-FederatedDirectory -Token $Token -Suppress
 
@@ -41,9 +44,10 @@
     param(
         [System.Collections.IDictionary] $Authorization,
         [Array] $Operations,
-        [int] $Size = 100,
+        [int] $Size = 1000,
         [switch] $ReturnHashtable,
-        [switch] $ReturnNative
+        [switch] $ReturnNative,
+        [switch] $Suppress
     )
     $TranslateMethod = @{
         'PUT'    = 'Update'
@@ -81,7 +85,7 @@
         foreach ($O in $SplitOperations) {
             $Body = [ordered] @{
                 schemas    = @('urn:ietf:params:scim:api:messages:2.0:BulkRequest')
-                Operations = $O
+                Operations = @($O)
             }
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
 
@@ -104,8 +108,9 @@
             if ($VerbosePreference -eq 'Continue') {
                 $Body | ConvertTo-Json -Depth 10 | Write-Verbose
             }
+            $Count = ($O | Measure-Object).Count
             Try {
-                if ($PSCmdlet.ShouldProcess("Federated Directory", "Bulk sending $($O.Count) operations")) {
+                if ($PSCmdlet.ShouldProcess("Federated Directory", "Bulk sending $($Count) operations")) {
                     $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false
                     # don't return data as we trust it's been created
                 }
