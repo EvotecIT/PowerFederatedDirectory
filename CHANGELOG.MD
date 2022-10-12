@@ -1,5 +1,4 @@
-﻿
-#### 0.0.6 - 2022.10.12
+﻿#### 0.0.6 - 2022.10.12
 - Fixes issue with manager under certain circumstances and with other fields if manager is not found
 
 #### 0.0.5 - 2022.09.26
