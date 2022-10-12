@@ -153,10 +153,14 @@
                             } else {
                                 $Path = $Key
                             }
-                            if ($PSBoundParameters[$Key]) {
-                                if ($ManagerUserName) {
-                                    $Value = $ManagerID
-                                } elseif ($ManagerDisplayName) {
+                            if ($null -ne $PSBoundParameters[$Key]) {
+                                if ($Key -eq 'ManagerUserName') {
+                                    if ($ManagerID) {
+                                        $Value = $ManagerID
+                                    } else {
+                                        $Value = $null
+                                    }
+                                } elseif ($Key -eq 'ManagerDisplayName') {
                                     $Value = @{
                                         displayName = $ManagerDisplayName
                                     }
@@ -175,10 +179,12 @@
                             } else {
                                 $ActionProperty = 'replace'
                             }
-                            [ordered] @{
-                                op    = $ActionProperty
-                                path  = $Path
-                                value = $Value
+                            if ($null -ne $Value) {
+                                [ordered] @{
+                                    op    = $ActionProperty
+                                    path  = $Path
+                                    value = $Value
+                                }
                             }
                         }
                     }
@@ -286,7 +292,7 @@
                 "timeZone"                                                   = $TimeZone
                 "userType"                                                   = $UserType
                 "title"                                                      = $Title
-                "active"                                                     = if ($PSBoundParameters.Keys -contains ('Active')) { $Active.IsPresent } else { $Null }
+                "active"                                                     = if ($PSBoundParameters.Keys -contains ('Active')) { $Active } else { $Null }
                 "roles"                                                      = @(
                     if ($Role) {
                         @{
