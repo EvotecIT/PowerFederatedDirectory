@@ -282,6 +282,7 @@
                 SortOrder     = $SortOrder
                 Attributes    = $Attributes
                 DirectoryID   = $DirectoryID
+                Native        = $Native
             }
             Remove-EmptyValue -Hashtable $getFederatedDirectoryUserSplat
             Get-FederatedDirectoryUser @getFederatedDirectoryUserSplat
