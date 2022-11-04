@@ -34,20 +34,25 @@ choco install openssl.light
 
 2. Install PowerShell Module called `jwtPS`
 
+Make sure to download 0.6.0 as the author changed the way it works in newer version
+
 ```powershell
-Install-Module jwtPS -Force -Verbose
+Install-Module jwtPs -MaximumVersion 0.6.0 -Force -Verbose
 ```
 
-3. Get the token by providing Key, Issuer and Private Key that are available on Federated Directory
+1. Get the token by providing Key, Issuer and Private Key that are available on Federated Directory
 
 ```powershell
+Import-Module jwtPs -MaximumVersion 0.6.0 -Force
+
+$PrivateKeyPath = "C:\Support\Important\Password-FederatedDirectory-Key.txt"
 $Key = Get-Content -Raw -LiteralPath $PrivateKeyPath # Saved private key from Federated Directory
 $Payload = @{
-    aud     = "eyJhbGciOiJI6Imtl" # Key from Federated Directory
-    iss     = "ws06v" # Issuer name from Federated Directory
-    "scope" = @("directoryKey")
+    aud     = "eyJhbGciOin" # Key from Federated Directory
+    iss     = "0snz1xgp7inutc" # Issuer name from Federated Directory
+    scope = @("directoryKey")
 }
-$JWT = New-JWT -PrivateKey $Key -Algorithm RS256 -Payload $Payload
+$JWT = New-Jwt -PrivateKey $Key -Algorithm RS256 -Payload $Payload
 $JWT
 ```
 
