@@ -1,4 +1,7 @@
-﻿#### 0.0.7 - 2022.10.25
+﻿#### 0.0.8 - 2023.01.27
+- Fixes warning name
+
+#### 0.0.7 - 2022.10.25
 - Fixes issue with Native not being respected if there's more people in `Get-FederatedDirectoryUser`
 
 #### 0.0.6 - 2022.10.12
