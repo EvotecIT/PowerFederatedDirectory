@@ -55,7 +55,7 @@
                 throw
             } else {
                 $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-                Write-Warning -Message "Connect-ILM - Error: $ErrorMessage"
+                Write-Warning -Message "Connect-FederatedDirectory - Error: $ErrorMessage"
                 return
             }
         }
@@ -103,7 +103,7 @@
             throw
         } else {
             $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-            Write-Warning -Message "Connect-ILM - Error: $ErrorMessage"
+            Write-Warning -Message "Connect-FederatedDirectory - Error: $ErrorMessage"
             $Key = [ordered] @{
                 'Authorization' = $Null
                 'Extended'      = $Null
