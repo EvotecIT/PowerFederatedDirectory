@@ -1,4 +1,7 @@
-﻿#### 0.0.8 - 2023.01.27
+﻿#### 0.0.9 - 2023.02.03
+- Fixes searching for users in `Get-FederatedDirectoryUser` when using UserName, ExternalID or other fields
+
+#### 0.0.8 - 2023.01.27
 - Fixes warning name
 
 #### 0.0.7 - 2022.10.25
