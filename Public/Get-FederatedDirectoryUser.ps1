@@ -196,11 +196,11 @@
             startIndex = if ($StartIndex) { $StartIndex } else { $null }
             filter     = if ($SearchUserName) {
                 # keep in mind regardless of used operator it will always revert back to co as per API (weird)
-                "userName eq $SearchUserName"
+                "userName eq `"$SearchUserName`""
             } elseif ($SearchExternalID) {
-                "externalId eq $SearchExternalID"
+                "externalId eq `"$SearchExternalID`""
             } elseif ($Search -and $SearchProperty) {
-                "$($ConvertAttributes[$SearchProperty]) $SearchOperator $Search"
+                "$($ConvertAttributes[$SearchProperty]) $SearchOperator `"$Search`""
             } else {
                 $Filter
             }
