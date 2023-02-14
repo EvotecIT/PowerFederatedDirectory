@@ -60,7 +60,7 @@
                 if ($PSBoundParameters.ErrorAction -eq 'Stop') {
                     throw "No authorization found. Please run 'Connect-FederatedDirectory' first."
                 } else {
-                    Write-Warning -Message "Get-FederatedDirectory - No authorization found. Please run 'Connect-FederatedDirectory' first."
+                    Write-Warning -Message "Remove-FederatedDirectoryUser - No authorization found. Please run 'Connect-FederatedDirectory' first."
                     return
                 }
             }
