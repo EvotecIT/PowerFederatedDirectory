@@ -41,6 +41,7 @@
 
         [int] $ExpiresTimeout = 30,
         [switch] $ForceRefresh,
+        [string] $DirectoryID,
         [switch] $Suppress
     )
     if (-not $Script:AuthorizationCacheFD) {
@@ -70,12 +71,13 @@
         ErrorAction = 'Stop'
         Method      = 'POST'
         Body        = @{
-            "grant_type" = "urn:ietf:params:oauth:grant-type:jwt-bearer"
-            "assertion"  = $ApplicationKey
+            "grant_type"  = "urn:ietf:params:oauth:grant-type:jwt-bearer"
+            "assertion"   = $ApplicationKey
+            "directoryId" = $DirectoryID
         }
         Uri         = 'https://api.federated.directory/v2/Login/Oauth2/Token'
     }
-
+    Remove-EmptyValue -Hashtable $RestSplat -Recursive
     if ($Script:AuthorizationCacheFD[$ShortKey] -and -not $ForceRefesh) {
         if ($Script:AuthorizationCacheFD[$ShortKey].ExpiresOn -gt [datetime]::UtcNow) {
             Write-Verbose "Connect-FederatedDirectory - Using cache for $ShortKey..."
