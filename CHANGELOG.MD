@@ -1,5 +1,6 @@
 #### 0.0.12 - 2026-10-14
 
+- Keep generated ZIPs and unpacked modules out of source control; build and release commands generate them locally.
 - Standardize native Manifest, Build and Publish modes, retain the RunMode alias and add CI checks for source tests and packaged behavior on PowerShell 5.1 and 7.
 
 - Remove authentication token values from verbose messages when reusing cached authorization.

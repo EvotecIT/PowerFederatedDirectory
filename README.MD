@@ -170,7 +170,7 @@ Build an unsigned validation package and run the source and package checks witho
 ./Build/Test-Package.ps1
 ```
 
-Packed and unpacked output is written under `Artefacts`. `-PackageRoot` selects another output directory. `Manifest` refreshes the module manifest without building or publishing. The GitHub workflow runs the native build and checks the packaged commands on PowerShell 7 and Windows PowerShell 5.1. Its service responses are synthetic; it does not authenticate to live services.
+Packed and unpacked output is written under `Artefacts`, which is excluded from version control. `-PackageRoot` selects another output directory. `Manifest` refreshes the module manifest without building or publishing. The GitHub workflow runs the native build and checks the packaged commands on PowerShell 7 and Windows PowerShell 5.1. Its service responses are synthetic; it does not authenticate to live services.
 
 `Publish` builds, signs and publishes to PowerShell Gallery and GitHub. Supply protected API-key files and your signing certificate thumbprint:
 
