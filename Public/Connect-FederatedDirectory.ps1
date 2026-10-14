@@ -65,7 +65,7 @@
         $ApplicationKey = $Token
     }
 
-    $ShortKey = $ApplicationKey.Trim(15)
+    $CacheKey = "$($DirectoryID.Length):$DirectoryID$ApplicationKey"
 
     $RestSplat = @{
         ErrorAction = 'Stop'
@@ -78,12 +78,16 @@
         Uri         = 'https://api.federated.directory/v2/Login/Oauth2/Token'
     }
     Remove-EmptyValue -Hashtable $RestSplat -Recursive
-    if ($Script:AuthorizationCacheFD[$ShortKey] -and -not $ForceRefesh) {
-        if ($Script:AuthorizationCacheFD[$ShortKey].ExpiresOn -gt [datetime]::UtcNow) {
-            Write-Verbose "Connect-FederatedDirectory - Using cache for $ShortKey..."
+    if ($Script:AuthorizationCacheFD[$CacheKey] -and -not $ForceRefresh) {
+        if ($Script:AuthorizationCacheFD[$CacheKey].ExpiresOn -gt [datetime]::UtcNow) {
+            $CachedAuthorization = $Script:AuthorizationCacheFD[$CacheKey]
+            $Script:AuthorizationCacheFD.Remove($CacheKey)
+            $Script:AuthorizationCacheFD.Insert(0, $CacheKey, $CachedAuthorization)
+            Write-Verbose 'Connect-FederatedDirectory - Using cached authorization.'
             if (-not $Suppress) {
-                return $Script:AuthorizationCacheFD[$ShortKey]
+                return $CachedAuthorization
             }
+            return
         }
     }
 
@@ -99,7 +103,8 @@
             }
             'Platform'      = $Platform
         }
-        $Script:AuthorizationCacheFD[$ShortKey] = $Key
+        if ($Script:AuthorizationCacheFD.Contains($CacheKey)) { $Script:AuthorizationCacheFD.Remove($CacheKey) }
+        $Script:AuthorizationCacheFD.Insert(0, $CacheKey, $Key)
     } catch {
         if ($PSBoundParameters.ErrorAction -eq 'Stop') {
             throw

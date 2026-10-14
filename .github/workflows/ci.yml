@@ -1,0 +1,43 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install build and test tools
+        shell: pwsh
+        run: |
+          Install-Module PSPublishModule -RequiredVersion 3.0.169 -Scope CurrentUser -Force -ErrorAction Stop
+          Install-Module Pester -RequiredVersion 5.7.1 -Scope CurrentUser -Force -ErrorAction Stop
+          Install-Module PSSharedGoods -RequiredVersion 0.0.313 -Scope CurrentUser -Force -ErrorAction Stop
+      - name: Validate manifest without credentials
+        shell: pwsh
+        run: ./Build/Build-Module.ps1 -ConfigurationGateMode Manifest -SignModule:$false -SkipInstall
+      - name: Build unsigned package
+        shell: pwsh
+        run: ./Build/Build-Module.ps1 -ConfigurationGateMode Build -SignModule:$false -SkipInstall
+      - name: Run source regression tests
+        shell: pwsh
+        run: Invoke-ModuleTestSuite -ProjectPath . -SkipImport -SkipDependencies -CICD -ExitOnFailure
+      - name: Check packaged behavior on PowerShell 7
+        shell: pwsh
+        run: ./Build/Test-PackageIsolation.ps1
+      - name: Check packaged behavior on Windows PowerShell 5.1
+        shell: powershell
+        run: ./Build/Test-PackageIsolation.ps1
