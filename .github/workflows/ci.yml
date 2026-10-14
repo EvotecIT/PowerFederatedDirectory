@@ -37,7 +37,7 @@ jobs:
         run: Invoke-ModuleTestSuite -ProjectPath . -SkipImport -SkipDependencies -CICD -ExitOnFailure
       - name: Check packaged behavior on PowerShell 7
         shell: pwsh
-        run: ./Build/Test-Package.ps1
+        run: ./Build/Test-PackageIsolation.ps1
       - name: Check packaged behavior on Windows PowerShell 5.1
         shell: powershell
-        run: ./Build/Test-Package.ps1
+        run: ./Build/Test-PackageIsolation.ps1
