@@ -12,11 +12,11 @@
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
-            Tags       = @('Windows', 'macOS', 'Linux', 'FederatedDirectory')
-            ProjectUri = 'https://github.com/EvotecIT/PowerFederatedDirectory'
-            RequireLicenseAcceptance = $false
+            Tags                       = @('Windows', 'macOS', 'Linux', 'FederatedDirectory')
+            ProjectUri                 = 'https://github.com/EvotecIT/PowerFederatedDirectory'
+            RequireLicenseAcceptance   = $false
             ExternalModuleDependencies = @()
-}
+        }
     }
     RequiredModules      = @()
     RootModule           = 'PowerFederatedDirectory.psm1'

@@ -1,4 +1,6 @@
-﻿#### 0.0.12 - 2026-10-14
+#### 0.0.12 - 2026-10-14
+
+- Standardize native Manifest, Build and Publish modes, retain the RunMode alias and add CI checks for source tests and packaged behavior on PowerShell 5.1 and 7.
 
 - Remove authentication token values from verbose messages when reusing cached authorization.
 - Reuse cached authorization with Suppress and honor an explicit ForceRefresh request.

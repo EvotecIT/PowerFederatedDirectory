@@ -53,8 +53,7 @@
         # Join primary url with additional path if needed
         if ($BaseUri -and $RelativeOrAbsoluteUri) {
             $Url = Join-Uri -BaseUri $BaseUri -RelativeOrAbsoluteUri $RelativeOrAbsoluteUri
-        }
-        else {
+        } else {
             $Url = $BaseUri
         }
 
@@ -73,12 +72,11 @@
         }
         if (-not $EscapeUriString) {
             $uriRequest.Uri.AbsoluteUri
-        }
-        else {
+        } else {
             [System.Uri]::EscapeUriString($uriRequest.Uri.AbsoluteUri)
         }
     }
- }
+}
 function Remove-EmptyValue {
     <#
     .SYNOPSIS
@@ -160,31 +158,24 @@ function Remove-EmptyValue {
                         if (-not $DoNotRemoveEmptyDictionary) {
                             $Hashtable.Remove($Key)
                         }
-                    }
-                    else {
+                    } else {
                         Remove-EmptyValue -Hashtable $Hashtable[$Key] -Recursive:$Recursive -ExcludeParameter $ExcludeParameter -DoNotRemoveNull:$DoNotRemoveNull -DoNotRemoveEmpty:$DoNotRemoveEmpty -DoNotRemoveEmptyArray:$DoNotRemoveEmptyArray -DoNotRemoveEmptyDictionary:$DoNotRemoveEmptyDictionary
                     }
-                }
-                else {
+                } else {
                     if (-not $DoNotRemoveNull -and $null -eq $Hashtable[$Key]) {
                         $Hashtable.Remove($Key)
-                    }
-                    elseif (-not $DoNotRemoveEmpty -and $Hashtable[$Key] -is [string] -and $Hashtable[$Key] -eq '') {
+                    } elseif (-not $DoNotRemoveEmpty -and $Hashtable[$Key] -is [string] -and $Hashtable[$Key] -eq '') {
                         $Hashtable.Remove($Key)
-                    }
-                    elseif (-not $DoNotRemoveEmptyArray -and $Hashtable[$Key] -is [System.Collections.IList] -and $Hashtable[$Key].Count -eq 0) {
+                    } elseif (-not $DoNotRemoveEmptyArray -and $Hashtable[$Key] -is [System.Collections.IList] -and $Hashtable[$Key].Count -eq 0) {
                         $Hashtable.Remove($Key)
                     }
                 }
-            }
-            else {
+            } else {
                 if (-not $DoNotRemoveNull -and $null -eq $Hashtable[$Key]) {
                     $Hashtable.Remove($Key)
-                }
-                elseif (-not $DoNotRemoveEmpty -and $Hashtable[$Key] -is [string] -and $Hashtable[$Key] -eq '') {
+                } elseif (-not $DoNotRemoveEmpty -and $Hashtable[$Key] -is [string] -and $Hashtable[$Key] -eq '') {
                     $Hashtable.Remove($Key)
-                }
-                elseif (-not $DoNotRemoveEmptyArray -and $Hashtable[$Key] -is [System.Collections.IList] -and $Hashtable[$Key].Count -eq 0) {
+                } elseif (-not $DoNotRemoveEmptyArray -and $Hashtable[$Key] -is [System.Collections.IList] -and $Hashtable[$Key].Count -eq 0) {
                     $Hashtable.Remove($Key)
                 }
             }
@@ -195,7 +186,7 @@ function Remove-EmptyValue {
             Remove-EmptyValue -Hashtable $Hashtable -Recursive:$Recursive -ExcludeParameter $ExcludeParameter -DoNotRemoveNull:$DoNotRemoveNull -DoNotRemoveEmpty:$DoNotRemoveEmpty -DoNotRemoveEmptyArray:$DoNotRemoveEmptyArray -DoNotRemoveEmptyDictionary:$DoNotRemoveEmptyDictionary
         }
     }
- }
+}
 function Split-Array {
     <#
     .SYNOPSIS
@@ -251,7 +242,7 @@ function Split-Array {
         $outArray.Add(@($Objects[$start..$end]))
     }
     , $outArray
- }
+}
 function Join-Uri {
     <#
     .SYNOPSIS
@@ -291,7 +282,7 @@ function Join-Uri {
     return ($BaseUri.OriginalString.TrimEnd('/') + "/" + $RelativeOrAbsoluteUri.OriginalString.TrimStart('/'))
     #return [Uri]::new([Uri]::new($BaseUri), $RelativeOrAbsoluteUri).ToString()
     #return [Uri]::new($BaseUri.OriginalString, $RelativeOrAbsoluteUri).ToString()
- }
+}
 
 # PowerForge merged source begin 9f634b39f78e8ea9313128964c83f0fe42b27d8ff7ca3e3ca2458f1b1960e5dc
 function Convert-FederatedUser {
@@ -649,7 +640,7 @@ function Add-FederatedDirectoryUser {
             }
         }
 
-        Try {
+        try {
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 2
 
             # for troubleshooting
@@ -879,7 +870,7 @@ function Get-FederatedDirectorySchema {
         'Content-Type' = 'application/json'
     }
 
-    Try {
+    try {
         $BatchObjects = Invoke-RestMethod -Method Get -Uri $BaseUri -Headers $Headers -ErrorAction Stop
         $BatchObjects.Resources
     } catch {
@@ -1117,7 +1108,7 @@ function Get-FederatedDirectoryUser {
             'directoryID'   = $DirectoryID
         }
         Remove-EmptyValue -Hashtable $Headers
-        Try {
+        try {
             $BatchObjects = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers -ErrorAction Stop -ContentType 'application/json; charset=utf-8'
         } catch {
             if ($PSBoundParameters.ErrorAction -eq 'Stop') {
@@ -1316,7 +1307,7 @@ function Invoke-FederatedDirectory {
                 $Body | ConvertTo-Json -Depth 10 | Write-Verbose
             }
             $Count = ($O | Measure-Object).Count
-            Try {
+            try {
                 if ($PSCmdlet.ShouldProcess("Federated Directory", "Bulk sending $($Count) operations")) {
                     $ReturnData = Invoke-RestMethod @invokeRestMethodSplat -Verbose:$false
                     # don't return data as we trust it's been created
@@ -1436,7 +1427,7 @@ function Remove-FederatedDirectoryUser {
         [switch] $Suppress,
         [parameter(ParameterSetName = 'All')][switch] $All
     )
-    Begin {
+    begin {
         if (-not $Authorization) {
             if ($Script:AuthorizationCacheFD) {
                 $Authorization = $Script:AuthorizationCacheFD[0]
@@ -1451,7 +1442,7 @@ function Remove-FederatedDirectoryUser {
             }
         }
     }
-    Process {
+    process {
         if ($Authorization) {
             if ($All) {
                 # lets simplify this for all
@@ -1466,14 +1457,14 @@ function Remove-FederatedDirectoryUser {
                 } elseif ($User) {
                     $RemoveID = $User.Id
                 } elseif ($SearchUserName) {
-                    $RemoveID = Foreach ($U in $SearchUserName) {
-                    (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
+                    $RemoveID = foreach ($U in $SearchUserName) {
+                        (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
                     }
                 } else {
                     return
                 }
                 foreach ($I in $RemoveID) {
-                    Try {
+                    try {
                         if ($BulkProcessing) {
                             # Return body is used for using Invoke-FederatedDirectory to add/set/remove users in bulk
                             return [ordered] @{
@@ -1606,7 +1597,7 @@ function Set-FederatedDirectoryUser {
         } elseif ($User) {
             $SetID = $User.Id
         } elseif ($SearchUserName) {
-            $SetID = Foreach ($U in $SearchUserName) {
+            $SetID = foreach ($U in $SearchUserName) {
                 (Get-FederatedDirectoryUser -Authorization $Authorization -UserName $U).Id
             }
         } else {
@@ -1869,7 +1860,7 @@ function Set-FederatedDirectoryUser {
                 }
             }
         }
-        Try {
+        try {
             Remove-EmptyValue -Hashtable $Body -Recursive -Rerun 3
 
             $MethodChosen = if ($Action -eq 'Update') { 'PATCH' } else { 'PUT' }

@@ -1,4 +1,4 @@
-﻿# PowerFederatedDirectory - PowerShell Module
+# PowerFederatedDirectory - PowerShell Module
 
 <p align="center">
   <a href="https://dev.azure.com/evotecpl/PowerFederatedDirectory/_build/results?buildId=latest"><img src="https://img.shields.io/azure-devops/build/evotecpl/39c74615-8f34-4af0-a835-68dc33f9214f/14?label=Azure%20Pipelines&style=flat-square"></a>
@@ -153,3 +153,32 @@ Every filter attribute has a default filter operator which will be used, no matt
 
 - https://help.federated.directory/
 - https://help.federated.directory/developer/getting-started.html
+## Build and release
+
+The standard entry point is `Build/Build-Module.ps1`. It uses PSPublishModule and provides `Manifest`, `Build` and `Publish` modes. `RunMode` remains an alias for `ConfigurationGateMode`.
+
+Install the build and test tools once:
+
+```powershell
+Install-Module PSPublishModule, Pester -Scope CurrentUser
+```
+
+Build an unsigned validation package and run the source and package checks without installing the module:
+
+```powershell
+./Build/Build-Module.ps1 -ConfigurationGateMode Build -SignModule:$false -SkipInstall
+./Build/Test-Package.ps1
+```
+
+Packed and unpacked output is written under `Artefacts`. `-PackageRoot` selects another output directory. `Manifest` refreshes the module manifest without building or publishing. The GitHub workflow runs the native build and checks the packaged commands on PowerShell 7 and Windows PowerShell 5.1. Its service responses are synthetic; it does not authenticate to live services.
+
+`Publish` builds, signs and publishes to PowerShell Gallery and GitHub. Supply protected API-key files and your signing certificate thumbprint:
+
+```powershell
+./Build/Build-Module.ps1 -ConfigurationGateMode Publish -SkipInstall `
+    -CertificateThumbprint '<signing certificate thumbprint>' `
+    -PowerShellGalleryApiKeyPath '<path to Gallery API-key file>' `
+    -GitHubApiKeyPath '<path to GitHub API-key file>'
+```
+
+The default key-file locations are `.config/evotec/psgallery-api-key.txt` and `.config/evotec/github-api-key.txt` under the current user's home directory. Manifest and Build modes require no publishing credentials. The legacy `Build/Manage-*.ps1` entry point, where present, forwards to the standard build.
