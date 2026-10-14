@@ -1,4 +1,11 @@
-﻿#### 0.0.10 - 2023.02.14
+﻿#### 0.0.12 - 2026-10-14
+
+- Remove authentication token values from verbose messages when reusing cached authorization.
+- Reuse cached authorization with Suppress and honor an explicit ForceRefresh request.
+- Keep authorization caches separate for each directory and use the most recently selected connection as the default.
+- Include the final contact at page boundaries, advance by the returned page size, and preserve filters and strict error handling across pages.
+- Provide a native module build entrypoint for packed and unpacked artifacts.
+#### 0.0.10 - 2023.02.14
 - Updates warning message to be more clear
 
 #### 0.0.9 - 2023.02.06

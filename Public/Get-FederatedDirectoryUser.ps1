@@ -263,27 +263,42 @@
                 Convert-FederatedUser -Users $BatchObjects
             }
         } else {
+            if ($BatchObjects.TotalResults -gt 0 -and $BatchObjects.TotalResults -ge $StartIndex) {
+                $message = 'Federated Directory returned an empty page before the declared total was retrieved.'
+                if ($ErrorActionPreference -eq [System.Management.Automation.ActionPreference]::Stop) { throw $message }
+                Write-Warning $message
+                return
+            }
             Write-Verbose "Get-FederatedDirectoryUser - No users found"
             return
         }
+        $ReturnedCount = if ($null -ne $BatchObjects.Resources) { @($BatchObjects.Resources).Count } else { 0 }
+        $NextStartIndex = [long] $BatchObjects.StartIndex + $ReturnedCount
         if (-not $Count -and -not $StartIndex) {
             # paging is disabled, we don't do anything
-        } elseif (-not $LimitReached -and $BatchObjects.TotalResults -gt $BatchObjects.StartIndex + $Count) {
+        } elseif (-not $LimitReached -and $ReturnedCount -gt 0 -and $BatchObjects.TotalResults -ge $NextStartIndex) {
+            if ($NextStartIndex -le $StartIndex) {
+                $message = 'Federated Directory pagination did not advance. A complete result could not be retrieved.'
+                if ($ErrorActionPreference -eq [System.Management.Automation.ActionPreference]::Stop) { throw $message }
+                Write-Warning $message
+                return
+            }
             # lets get more users because there's more to get and user wanted more
-            $MaxResults = $MaxResults - $BatchObjects.Resources.Count
+            if ($MaxResults -gt 0) { $MaxResults = $MaxResults - $ReturnedCount }
             Write-Verbose "Get-FederatedDirectoryUser - Processing more pages (StartIndex: $StartIndex, Count: $Count)."
             $getFederatedDirectoryUserSplat = @{
                 Authorization = $Authorization
-                StartIndex    = $($BatchObjects.StartIndex + $Count)
+                StartIndex    = $NextStartIndex
                 Count         = $Count
                 MaxResults    = $MaxResults
-                Filter        = $Filter
+                Filter        = $QueryParameter.filter
                 SortBy        = $SortBy
                 SortOrder     = $SortOrder
                 Attributes    = $Attributes
                 DirectoryID   = $DirectoryID
                 Native        = $Native
             }
+            if ($PSBoundParameters.ContainsKey('ErrorAction')) { $getFederatedDirectoryUserSplat.ErrorAction = $PSBoundParameters.ErrorAction }
             Remove-EmptyValue -Hashtable $getFederatedDirectoryUserSplat
             Get-FederatedDirectoryUser @getFederatedDirectoryUserSplat
         }

@@ -1,0 +1,2 @@
+# Preserve packaged files, including signed dependencies, byte for byte.
+Artefacts/Unpacked/** -text -diff
