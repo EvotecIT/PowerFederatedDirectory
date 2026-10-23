@@ -10,7 +10,7 @@ param(
     [string] $GitHubApiKeyPath = (Join-Path $HOME '.config/evotec/github-api-key.txt')
 )
 
-Import-Module PSPublishModule -MinimumVersion 3.0.169 -Force -ErrorAction Stop
+Import-Module PSPublishModule -MinimumVersion 3.0.176 -Force -ErrorAction Stop
 
 Build-Module -ModuleName 'PowerFederatedDirectory' {
     New-ConfigurationManifest -ModuleVersion '0.0.12' -CompatiblePSEditions Desktop, Core `
@@ -25,6 +25,7 @@ Build-Module -ModuleName 'PowerFederatedDirectory' {
     New-ConfigurationFormat -ApplyTo OnMergePSM1, OnMergePSD1 -EnableFormatting -PSD1Style Minimal
     New-ConfigurationImportModule -ImportSelf -ImportRequiredModules
     New-ConfigurationTest -TestsPath 'Tests' -Enable
+    New-ConfigurationDocumentation -Enable -Path Docs -PathReadme Docs/Readme.md
     New-ConfigurationBuild -Enable -SignModule:$SignModule -CertificateThumbprint $CertificateThumbprint -MergeModuleOnBuild -MergeFunctionsFromApprovedModules -LocalVersioning:$false
     New-ConfigurationArtefact -Type Unpacked -Enable -Path (Join-Path $PackageRoot 'Unpacked') -ModulesPath Modules -RequiredModulesPath Modules -AddRequiredModules
     New-ConfigurationArtefact -Type Packed -Enable -Path (Join-Path $PackageRoot 'Packed') -ArtefactName '<ModuleName>.v<ModuleVersion>.zip'

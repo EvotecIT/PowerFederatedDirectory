@@ -23,7 +23,7 @@ jobs:
       - name: Install build and test tools
         shell: pwsh
         run: |
-          Install-Module PSPublishModule -RequiredVersion 3.0.169 -Scope CurrentUser -Force -ErrorAction Stop
+          Install-Module PSPublishModule -RequiredVersion 3.0.176 -Scope CurrentUser -Force -ErrorAction Stop
           Install-Module Pester -RequiredVersion 5.7.1 -Scope CurrentUser -Force -ErrorAction Stop
           Install-Module PSSharedGoods -RequiredVersion 0.0.313 -Scope CurrentUser -Force -ErrorAction Stop
       - name: Validate manifest without credentials

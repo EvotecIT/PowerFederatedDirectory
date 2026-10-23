@@ -1,3 +1,8 @@
+#### Unreleased
+
+- Add exact employee-number lookup through SearchEmployeeNumber and its EmployeeNumber alias, preserving the filter across every page and escaping literal values.
+- Use the published build tool with approved-dependency pruning and refresh the read/update examples.
+
 #### 0.0.12 - 2026-10-14
 
 - Keep generated ZIPs and unpacked modules out of source control; build and release commands generate them locally.
@@ -8,6 +13,10 @@
 - Keep authorization caches separate for each directory and use the most recently selected connection as the default.
 - Include the final contact at page boundaries, advance by the returned page size, and preserve filters and strict error handling across pages.
 - Provide a native module build entrypoint for packed and unpacked artifacts.
+#### 0.0.11 - 2023-10-17
+
+- Add support for specifying a directory ID to Connect-FederatedDirectory.
+
 #### 0.0.10 - 2023.02.14
 - Updates warning message to be more clear
 

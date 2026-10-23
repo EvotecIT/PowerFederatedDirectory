@@ -1,20 +1,17 @@
 ---
 external help file: PowerFederatedDirectory-help.xml
 Module Name: PowerFederatedDirectory
-online version:
+online version: https://github.com/EvotecIT/PowerFederatedDirectory
 schema: 2.0.0
 ---
-
 # Invoke-FederatedDirectory
-
 ## SYNOPSIS
 Provides a way to invoke multiple operations on FederatedDirectory in a single request (bulk).
 
 ## SYNTAX
-
-```
-Invoke-FederatedDirectory [[-Authorization] <IDictionary>] [[-Operations] <Array>] [[-Size] <Int32>]
- [-ReturnHashtable] [-ReturnNative] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
+### __AllParameterSets
+```powershell
+Invoke-FederatedDirectory [[-Authorization] <IDictionary>] [[-Operations] <array>] [[-Size] <int>] [-ReturnHashtable] [-ReturnNative] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,8 +21,8 @@ While the official limit is 1000 operations in a single request, it's actually m
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
-Connect-FederatedDirectory -Token $Token -Suppress
+```powershell
+PS > Connect-FederatedDirectory -Token $Token -Suppress
 ```
 
 $Operations = for ($i = 1; $i -le 1; $i++) {
@@ -40,16 +37,16 @@ $Response | Format-Table
 ## PARAMETERS
 
 ### -Authorization
-The authorization identity to use for the request from Connect-FederatedDirectory.
-If not specified, the default authorization identity will be used.
+The authorization identity to use for the request from Connect-FederatedDirectory. If not specified, the default authorization identity will be used.
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -60,28 +57,13 @@ Operations to perform as part of bulk request
 
 ```yaml
 Type: Array
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 2
+Position: 1
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Size
-Batch size of operations to send in a single request.
-Default is 100.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 1000
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -91,11 +73,12 @@ Return results as a hashtable for quick matching BulkId
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -109,58 +92,45 @@ Prevent returning results
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Size
+Batch size of operations to send in a single request. Default is 100.
+
+```yaml
+Type: Int32
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
+
+Required: False
+Position: 2
+Default value: 1000
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Suppress
-{{ Fill Suppress Description }}
+Specifies the suppress switch.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -170,9 +140,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+- `None`
+
 ## OUTPUTS
 
-## NOTES
-General notes
+- `None`
 
 ## RELATED LINKS
+
+- None

@@ -1,62 +1,56 @@
 ---
 external help file: PowerFederatedDirectory-help.xml
 Module Name: PowerFederatedDirectory
-online version:
+online version: https://github.com/EvotecIT/PowerFederatedDirectory
 schema: 2.0.0
 ---
-
 # Get-FederatedDirectoryUser
-
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Retrieves users and follows all advertised directory pages.
 
 ## SYNTAX
-
-```
-Get-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-Id] <String>] [[-SearchUserName] <String>]
- [[-SearchExternalID] <String>] [[-Search] <String>] [[-SearchProperty] <String>] [[-SearchOperator] <String>]
- [[-DirectoryID] <String>] [[-MaxResults] <Int32>] [[-StartIndex] <Int32>] [[-Count] <Int32>]
- [[-Filter] <String>] [[-SortBy] <String>] [[-SortOrder] <String>] [[-Attributes] <String[]>] [-Native]
- [<CommonParameters>]
+### __AllParameterSets
+```powershell
+Get-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-Id] <string>] [[-SearchUserName] <string>] [[-SearchExternalID] <string>] [[-SearchEmployeeNumber] <string>] [[-Search] <string>] [[-SearchProperty] <string>] [[-SearchOperator] <string>] [[-DirectoryID] <string>] [[-MaxResults] <int>] [[-StartIndex] <int>] [[-Count] <int>] [[-Filter] <string>] [[-SortBy] <string>] [[-SortOrder] <string>] [[-Attributes] <string[]>] [-Native] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Retrieves users and follows all advertised directory pages.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS > Get-FederatedDirectoryUser -EmployeeNumber 'employee-42'
 ```
 
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -Attributes
-{{ Fill Attributes Description }}
+Specifies one or more values for attributes.
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: Property
-Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
+Possible values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
 
 Required: False
-Position: 14
+Position: 15
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Authorization
-{{ Fill Authorization Description }}
+Specifies one or more values for authorization.
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 0
@@ -66,57 +60,61 @@ Accept wildcard characters: False
 ```
 
 ### -Count
-{{ Fill Count Description }}
+Specifies a value for count.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 10
-Default value: None
+Position: 11
+Default value: 1000
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -DirectoryID
-{{ Fill DirectoryID Description }}
+Specifies a value for directory id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 7
+Position: 8
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Filter
-{{ Fill Filter Description }}
+Specifies a value for filter.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 11
+Position: 12
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+Specifies a value for id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 1
@@ -126,42 +124,62 @@ Accept wildcard characters: False
 ```
 
 ### -MaxResults
-{{ Fill MaxResults Description }}
+Specifies a value for max results.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 8
-Default value: None
+Position: 9
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Native
-{{ Fill Native Description }}
+Specifies the native switch.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
-Default value: None
+Position: named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Search
-{{ Fill Search Description }}
+Specifies a value for search.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SearchEmployeeNumber
+Matches the enterprise employee number exactly. EmployeeNumber is an alias.
+User-name and external-ID selectors retain precedence when also supplied.
+
+```yaml
+Type: String
+Parameter Sets: __AllParameterSets
+Aliases: EmployeeNumber
+Possible values:
 
 Required: False
 Position: 4
@@ -171,12 +189,13 @@ Accept wildcard characters: False
 ```
 
 ### -SearchExternalID
-{{ Fill SearchExternalID Description }}
+Specifies a value for search external id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: ExternalID
+Possible values:
 
 Required: False
 Position: 3
@@ -186,43 +205,45 @@ Accept wildcard characters: False
 ```
 
 ### -SearchOperator
-{{ Fill SearchOperator Description }}
+Specifies a value for search operator.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 6
-Default value: None
+Position: 7
+Default value: eq
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -SearchProperty
-{{ Fill SearchProperty Description }}
+Specifies a value for search property.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
 
 Required: False
-Position: 5
-Default value: None
+Position: 6
+Default value: userName
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -SearchUserName
-{{ Fill SearchUserName Description }}
+Specifies a value for search user name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: UserName
+Possible values:
 
 Required: False
 Position: 2
@@ -232,29 +253,13 @@ Accept wildcard characters: False
 ```
 
 ### -SortBy
-{{ Fill SortBy Description }}
+Specifies a value for sort by.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SortOrder
-{{ Fill SortOrder Description }}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: ascending, descending
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: id, externalId, userName, givenName, familyName, displayName, nickName, profileUrl, title, userType, emails, phoneNumbers, addresses, preferredLanguage, locale, timezone, active, groups, roles, meta, organization, employeeNumber, costCenter, division, department, manager, description, directoryId, companyId, companyLogos, custom01, custom02, custom03
 
 Required: False
 Position: 13
@@ -263,17 +268,34 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SortOrder
+Specifies a value for sort order.
+
+```yaml
+Type: String
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: ascending, descending
+
+Required: False
+Position: 14
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -StartIndex
-{{ Fill StartIndex Description }}
+Specifies a value for start index.
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: 9
-Default value: None
+Position: 10
+Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -283,11 +305,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+- `None`
 
 ## OUTPUTS
 
-### System.Object
-## NOTES
+- `None`
 
 ## RELATED LINKS
+
+- None

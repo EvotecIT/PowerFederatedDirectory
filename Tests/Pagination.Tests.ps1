@@ -10,6 +10,24 @@ Describe 'Federated Directory page completeness' {
         $script:Requests = [Collections.Generic.List[string]]::new()
         $script:Authorization = @{ Authorization = 'synthetic' }
     }
+    It 'retains an exact employee number filter across pages using <Parameter>' -ForEach @(
+        @{ Parameter = 'SearchEmployeeNumber'; Value = 'employee-42'; Literal = '"employee-42"' },
+        @{ Parameter = 'EmployeeNumber'; Value = 'EMP"\42'; Literal = '"EMP\"\\42"' }
+    ) {
+        Mock Invoke-RestMethod {
+            $script:Requests.Add([string] $Uri)
+            $start = [int] [regex]::Match([string] $Uri, 'startIndex=(\d+)').Groups[1].Value
+            [pscustomobject] @{ StartIndex = $start; TotalResults = 2; Resources = @([pscustomobject] @{ id = "user-$start" }) }
+        }
+        $selector = @{ $Parameter = $Value }
+        $users = @(Get-FederatedDirectoryUser @selector -Authorization $script:Authorization -Count 1 -Native -ErrorAction Stop)
+        $users.id | Should -Be @('user-1', 'user-2')
+        $script:Requests | Should -HaveCount 2
+        $expected = 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber eq ' + $Literal
+        foreach ($request in $script:Requests) {
+            ([uri]::UnescapeDataString($request) -split '&filter=', 2)[1] | Should -Be $expected
+        }
+    }
     It 'includes contact 1001 with a server page size of <PageSize>' -ForEach @(
         @{ PageSize = 1000; Starts = @('1', '1001') },
         @{ PageSize = 500; Starts = @('1', '501', '1001') }

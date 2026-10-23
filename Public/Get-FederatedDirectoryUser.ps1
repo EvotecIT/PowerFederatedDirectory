@@ -1,4 +1,13 @@
 ﻿function Get-FederatedDirectoryUser {
+    <#
+    .SYNOPSIS
+    Retrieves users and follows all advertised directory pages.
+    .PARAMETER SearchEmployeeNumber
+    Matches the enterprise employee number exactly. EmployeeNumber is an alias.
+    User-name and external-ID selectors retain precedence when also supplied.
+    .EXAMPLE
+    Get-FederatedDirectoryUser -EmployeeNumber 'employee-42'
+    #>
     [alias('Get-FDUser')]
     [cmdletbinding()]
     param(
@@ -6,6 +15,7 @@
         [string] $Id,
         [Alias('UserName')][string] $SearchUserName,
         [Alias('ExternalID')][string] $SearchExternalID,
+        [Alias('EmployeeNumber')][string] $SearchEmployeeNumber,
         [string] $Search,
         [ValidateSet(
             'id',
@@ -199,6 +209,8 @@
                 "userName eq `"$SearchUserName`""
             } elseif ($SearchExternalID) {
                 "externalId eq `"$SearchExternalID`""
+            } elseif ($SearchEmployeeNumber) {
+                "$($ConvertAttributes['employeeNumber']) eq $(ConvertTo-Json -InputObject $SearchEmployeeNumber -Compress)"
             } elseif ($Search -and $SearchProperty) {
                 "$($ConvertAttributes[$SearchProperty]) $SearchOperator `"$Search`""
             } else {

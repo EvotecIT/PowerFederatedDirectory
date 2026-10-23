@@ -1,13 +1,15 @@
-﻿Import-Module .\PowerFederatedDirectory.psd1 -Force
-
-$Token = Get-Content -Raw -LiteralPath 'C:\Support\Important\Password-FederatedDirectory.txt'
-
+param(
+    [string] $Token = $env:FEDERATED_DIRECTORY_TOKEN,
+    [Parameter(Mandatory)][string] $UserId,
+    [string] $DisplayName = 'Example User',
+    [string] $EmailAddress = 'user@example.test',
+    [switch] $Apply
+)
+Import-Module PowerFederatedDirectory -ErrorAction Stop
+if (-not $Token) { throw 'Provide Token or set FEDERATED_DIRECTORY_TOKEN.' }
 Connect-FederatedDirectory -Token $Token -Suppress
-
-#Set-FederatedDirectoryUser -Id '69c6b3c0-34dd-11ed-a621-4b6b819dffa2' -DisplayName 'New name' -FamilyName 'New namme' -EmailAddressHome 'test@evo.pl' -PhoneNumberHome '502469000' -Verbose -Custom01 'test123' -Action Update
-
-$Users = Get-FederatedDirectoryUser
-foreach ($U in $Users) {
-    Set-FederatedDirectoryUser -Id $U.id -ManagerUserName 'BringFood@test.pl' -Verbose
-}
-Set-FederatedDirectoryUser -SearchUserName 'BringFood@test.pl' -Verbose -Custom01 'test123'
+Get-FederatedDirectoryUser -Id $UserId |
+    Format-Table Id, UserName, DisplayName, EmailAddress, FamilyName, Country, Custom01
+# Preview by default. Apply only after inspecting the selected account and intended values.
+Set-FederatedDirectoryUser -Id $UserId -DisplayName $DisplayName -EmailAddress $EmailAddress -Action Update -WhatIf:(-not $Apply)
+# Use Action Overwrite only when intentionally replacing the complete remote record.
