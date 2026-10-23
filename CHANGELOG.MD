@@ -1,4 +1,4 @@
-#### Unreleased
+#### 0.0.13 - 2026-10-23
 
 - Add exact employee-number lookup through SearchEmployeeNumber and its EmployeeNumber alias, preserving the filter across every page and escaping literal values.
 - Use the published build tool with approved-dependency pruning and refresh the read/update examples.

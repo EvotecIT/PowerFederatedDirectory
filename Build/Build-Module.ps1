@@ -13,7 +13,7 @@ param(
 Import-Module PSPublishModule -MinimumVersion 3.0.176 -Force -ErrorAction Stop
 
 Build-Module -ModuleName 'PowerFederatedDirectory' {
-    New-ConfigurationManifest -ModuleVersion '0.0.12' -CompatiblePSEditions Desktop, Core `
+    New-ConfigurationManifest -ModuleVersion '0.0.13' -CompatiblePSEditions Desktop, Core `
         -Guid 'b73875b9-d87b-4a10-8cb5-0980d180c05b' -Author 'Przemyslaw Klys' -CompanyName Evotec `
         -Copyright "(c) 2011 - $((Get-Date).Year) Przemyslaw Klys @ Evotec. All rights reserved." `
         -Description 'PowerShell module for Federated Directory.' -PowerShellVersion '5.1' `
