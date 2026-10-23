@@ -2,7 +2,7 @@
 Module Name: PowerFederatedDirectory
 Module Guid: b73875b9-d87b-4a10-8cb5-0980d180c05b
 Download Help Link: https://github.com/EvotecIT/PowerFederatedDirectory
-Help Version: 0.0.12
+Help Version: 0.0.13
 Locale: en-US
 ---
 # PowerFederatedDirectory Module
