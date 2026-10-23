@@ -23,6 +23,11 @@
 `PowerFederatedDirectory` is a PowerShell module to interact with service https://www.federated.directory/. This module uses API exposed by **Federated Directory** and allows to Add, Get, Set and Remove users from **Federated Directory**.
 This is unofiicial module and is not supported by **Federated Directory**, but it does work just fine.
 
+### Find a user by employee number
+
+Use `Get-FederatedDirectoryUser -EmployeeNumber 'employee-42'` for an exact enterprise employee-number match. `SearchEmployeeNumber` is the canonical parameter name. The command keeps the filter while following subsequent pages and treats quotes and backslashes as literal employee-number characters.
+
+The read examples accept `FEDERATED_DIRECTORY_TOKEN` or an explicit token. The update example previews changes by default; use its `-Apply` switch only after inspecting the selected account and intended values.
 ### Creating Token
 
 1. Install OpenSSL (manually or using chocolatey)

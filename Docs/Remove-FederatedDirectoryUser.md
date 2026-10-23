@@ -1,39 +1,32 @@
 ---
 external help file: PowerFederatedDirectory-help.xml
 Module Name: PowerFederatedDirectory
-online version:
+online version: https://github.com/EvotecIT/PowerFederatedDirectory
 schema: 2.0.0
 ---
-
 # Remove-FederatedDirectoryUser
-
 ## SYNOPSIS
 Remove a user from a federated directory.
 
 ## SYNTAX
-
 ### Id (Default)
-```
-Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -Id <String[]> [-DirectoryID <String>]
- [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
+```powershell
+Remove-FederatedDirectoryUser -Id <string[]> [-Authorization <IDictionary>] [-DirectoryID <string>] [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### User
-```
-Remove-FederatedDirectoryUser [-Authorization <IDictionary>] [-User] <PSObject[]> [-DirectoryID <String>]
- [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
+```powershell
+Remove-FederatedDirectoryUser [-User] <psobject[]> [-Authorization <IDictionary>] [-DirectoryID <string>] [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### UserName
-```
-Remove-FederatedDirectoryUser [-Authorization <IDictionary>] -SearchUserName <String[]> [-DirectoryID <String>]
- [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
+```powershell
+Remove-FederatedDirectoryUser -SearchUserName <string[]> [-Authorization <IDictionary>] [-DirectoryID <string>] [-BulkProcessing] [-Suppress] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### All
-```
-Remove-FederatedDirectoryUser [-Authorization <IDictionary>] [-DirectoryID <String>] [-BulkProcessing]
- [-Suppress] [-All] [-WhatIf] [-Confirm] [<CommonParameters>]
+```powershell
+Remove-FederatedDirectoryUser [-Authorization <IDictionary>] [-DirectoryID <string>] [-BulkProcessing] [-Suppress] [-All] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,56 +35,89 @@ Remove a user from a federated directory.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
-# remove specific user id
+```powershell
+PS > # remove specific user id
+Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose
 ```
 
-Remove-FederatedDirectoryUser -Id '171a8cd0-2382-11ed-9dd1-b13400d703b6' -Verbose
 
 ### EXAMPLE 2
-```
-# get all ther users that contain name test user and delete them
+```powershell
+PS > # get all ther users that contain name test user and delete them
+Remove-FederatedDirectoryUser -UserName 'testuser' -Verbose
 ```
 
-Remove-FederatedDirectoryUser -UserName 'testuser' -Verbose
 
 ### EXAMPLE 3
-```
-# get all ther users that contain name test user and delete them
+```powershell
+PS > # get all ther users that contain name test user and delete them
+Get-FederatedDirectoryUser -UserName 'testuser' | Remove-FederatedDirectoryUser -Verbose
 ```
 
-Get-FederatedDirectoryUser -UserName 'testuser' | Remove-FederatedDirectoryUser -Verbose
 
 ## PARAMETERS
 
+### -All
+Remove all users from the directory.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: All
+Aliases: None
+Possible values:
+
+Required: False
+Position: named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Authorization
-The authorization identity to use for the request from Connect-FederatedDirectory.
-If not specified, the default authorization identity will be used.
+The authorization identity to use for the request from Connect-FederatedDirectory. If not specified, the default authorization identity will be used.
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: Id, User, UserName, All
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -User
-The user to remove from the federated directory.
+### -BulkProcessing
+Specifies the bulk processing switch.
 
 ```yaml
-Type: PSObject[]
-Parameter Sets: User
-Aliases:
+Type: SwitchParameter
+Parameter Sets: Id, User, UserName, All
+Aliases: None
+Possible values:
 
-Required: True
-Position: 1
+Required: False
+Position: named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DirectoryID
+The id of the directory to remove the user from. If not specified, the default directory will be used.
+
+```yaml
+Type: String
+Parameter Sets: Id, User, UserName, All
+Aliases: None
+Possible values:
+
+Required: False
+Position: named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -101,10 +127,11 @@ The id of the user to remove from the federated directory.
 ```yaml
 Type: String[]
 Parameter Sets: Id
-Aliases:
+Aliases: None
+Possible values:
 
 Required: True
-Position: Named
+Position: named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -116,104 +143,45 @@ The user name of the user to remove from the federated directory.
 ```yaml
 Type: String[]
 Parameter Sets: UserName
-Aliases:
+Aliases: None
+Possible values:
 
 Required: True
-Position: Named
+Position: named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DirectoryID
-The id of the directory to remove the user from.
-If not specified, the default directory will be used.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -BulkProcessing
-{{ Fill BulkProcessing Description }}
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Suppress
-{{ Fill Suppress Description }}
+Specifies the suppress switch.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: Id, User, UserName, All
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -All
-Remove all users from the directory.
+### -User
+The user to remove from the federated directory.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: All
-Aliases:
+Type: PSObject[]
+Parameter Sets: User
+Aliases: None
+Possible values:
 
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
+Required: True
+Position: 0
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -222,9 +190,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+- `PSObject[]`
+
 ## OUTPUTS
 
-## NOTES
-General notes
+- `None`
 
 ## RELATED LINKS
+
+- None

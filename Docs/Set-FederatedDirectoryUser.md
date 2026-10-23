@@ -1,56 +1,40 @@
 ---
 external help file: PowerFederatedDirectory-help.xml
 Module Name: PowerFederatedDirectory
-online version:
+online version: https://github.com/EvotecIT/PowerFederatedDirectory
 schema: 2.0.0
 ---
-
 # Set-FederatedDirectoryUser
-
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Set-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-SearchUserName] <string>] [[-Id] <string>] [[-ExternalId] <string>] [[-DirectoryID] <string>] [[-UserName] <string>] [[-FamilyName] <Object>] [[-GivenName] <string>] [[-DisplayName] <string>] [[-NickName] <string>] [[-ProfileUrl] <string>] [[-EmailAddress] <string>] [[-EmailAddressHome] <string>] [[-StreetAddress] <string>] [[-City] <string>] [[-Region] <string>] [[-PostalCode] <string>] [[-Country] <string>] [[-StreetAddressHome] <string>] [[-PostalCodeHome] <string>] [[-CityHome] <string>] [[-RegionHome] <string>] [[-CountryHome] <string>] [[-PhoneNumberWork] <string>] [[-PhoneNumberHome] <string>] [[-PhoneNumberMobile] <string>] [[-PhotoUrl] <string>] [[-ThumbnailUrl] <string>] [[-CompanyID] <string>] [[-PreferredLanguage] <string>] [[-Locale] <string>] [[-TimeZone] <string>] [[-Title] <string>] [[-UserType] <string>] [[-Password] <string>] [[-ManagerID] <string>] [[-ManagerUserName] <string>] [[-ManagerReference] <string>] [[-ManagerDisplayName] <string>] [[-Active] <bool>] [[-Department] <string>] [[-EmployeeNumber] <string>] [[-CostCenter] <string>] [[-Division] <string>] [[-Description] <string>] [[-Role] <string>] [[-Custom01] <string>] [[-Custom02] <string>] [[-Custom03] <string>] [[-Action] <string>] [[-ActionPerProperty] <IDictionary>] [-Suppress] [-BulkProcessing] [-WhatIf] [-Confirm] [<CommonParameters>]
 
 ## SYNTAX
-
-```
-Set-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-SearchUserName] <String>] [[-Id] <String>]
- [[-ExternalId] <String>] [[-DirectoryID] <String>] [[-UserName] <String>] [[-FamilyName] <Object>]
- [[-GivenName] <String>] [[-DisplayName] <String>] [[-NickName] <String>] [[-ProfileUrl] <String>]
- [[-EmailAddress] <String>] [[-EmailAddressHome] <String>] [[-StreetAddress] <String>] [[-City] <String>]
- [[-Region] <String>] [[-PostalCode] <String>] [[-Country] <String>] [[-StreetAddressHome] <String>]
- [[-PostalCodeHome] <String>] [[-CityHome] <String>] [[-RegionHome] <String>] [[-CountryHome] <String>]
- [[-PhoneNumberWork] <String>] [[-PhoneNumberHome] <String>] [[-PhoneNumberMobile] <String>]
- [[-PhotoUrl] <String>] [[-ThumbnailUrl] <String>] [[-CompanyID] <String>] [[-PreferredLanguage] <String>]
- [[-Locale] <String>] [[-TimeZone] <String>] [[-Title] <String>] [[-UserType] <String>] [[-Password] <String>]
- [[-ManagerID] <String>] [[-ManagerUserName] <String>] [[-ManagerReference] <String>]
- [[-ManagerDisplayName] <String>] [[-Active] <Boolean>] [[-Department] <String>] [[-EmployeeNumber] <String>]
- [[-CostCenter] <String>] [[-Division] <String>] [[-Description] <String>] [[-Role] <String>]
- [[-Custom01] <String>] [[-Custom02] <String>] [[-Custom03] <String>] [-Suppress] [[-Action] <String>]
- [[-ActionPerProperty] <IDictionary>] [-BulkProcessing] [-WhatIf] [-Confirm] [<CommonParameters>]
+### __AllParameterSets
+```powershell
+Set-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-SearchUserName] <string>] [[-Id] <string>] [[-ExternalId] <string>] [[-DirectoryID] <string>] [[-UserName] <string>] [[-FamilyName] <Object>] [[-GivenName] <string>] [[-DisplayName] <string>] [[-NickName] <string>] [[-ProfileUrl] <string>] [[-EmailAddress] <string>] [[-EmailAddressHome] <string>] [[-StreetAddress] <string>] [[-City] <string>] [[-Region] <string>] [[-PostalCode] <string>] [[-Country] <string>] [[-StreetAddressHome] <string>] [[-PostalCodeHome] <string>] [[-CityHome] <string>] [[-RegionHome] <string>] [[-CountryHome] <string>] [[-PhoneNumberWork] <string>] [[-PhoneNumberHome] <string>] [[-PhoneNumberMobile] <string>] [[-PhotoUrl] <string>] [[-ThumbnailUrl] <string>] [[-CompanyID] <string>] [[-PreferredLanguage] <string>] [[-Locale] <string>] [[-TimeZone] <string>] [[-Title] <string>] [[-UserType] <string>] [[-Password] <string>] [[-ManagerID] <string>] [[-ManagerUserName] <string>] [[-ManagerReference] <string>] [[-ManagerDisplayName] <string>] [[-Active] <bool>] [[-Department] <string>] [[-EmployeeNumber] <string>] [[-CostCenter] <string>] [[-Division] <string>] [[-Description] <string>] [[-Role] <string>] [[-Custom01] <string>] [[-Custom02] <string>] [[-Custom03] <string>] [[-Action] <string>] [[-ActionPerProperty] <IDictionary>] [-Suppress] [-BulkProcessing] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Set-FederatedDirectoryUser [[-Authorization] <IDictionary>] [[-SearchUserName] <string>] [[-Id] <string>] [[-ExternalId] <string>] [[-DirectoryID] <string>] [[-UserName] <string>] [[-FamilyName] <Object>] [[-GivenName] <string>] [[-DisplayName] <string>] [[-NickName] <string>] [[-ProfileUrl] <string>] [[-EmailAddress] <string>] [[-EmailAddressHome] <string>] [[-StreetAddress] <string>] [[-City] <string>] [[-Region] <string>] [[-PostalCode] <string>] [[-Country] <string>] [[-StreetAddressHome] <string>] [[-PostalCodeHome] <string>] [[-CityHome] <string>] [[-RegionHome] <string>] [[-CountryHome] <string>] [[-PhoneNumberWork] <string>] [[-PhoneNumberHome] <string>] [[-PhoneNumberMobile] <string>] [[-PhotoUrl] <string>] [[-ThumbnailUrl] <string>] [[-CompanyID] <string>] [[-PreferredLanguage] <string>] [[-Locale] <string>] [[-TimeZone] <string>] [[-Title] <string>] [[-UserType] <string>] [[-Password] <string>] [[-ManagerID] <string>] [[-ManagerUserName] <string>] [[-ManagerReference] <string>] [[-ManagerDisplayName] <string>] [[-Active] <bool>] [[-Department] <string>] [[-EmployeeNumber] <string>] [[-CostCenter] <string>] [[-Division] <string>] [[-Description] <string>] [[-Role] <string>] [[-Custom01] <string>] [[-Custom02] <string>] [[-Custom03] <string>] [[-Action] <string>] [[-ActionPerProperty] <IDictionary>] [-Suppress] [-BulkProcessing] [-WhatIf] [-Confirm] [<CommonParameters>]
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```powershell
-PS C:\> {{ Add example code here }}
+Set-FederatedDirectoryUser -Action 'Value'
 ```
 
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -Action
-{{ Fill Action Description }}
+Specifies a value for action.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Overwrite, Update
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: Overwrite, Update
 
 Required: False
 Position: 49
@@ -60,12 +44,13 @@ Accept wildcard characters: False
 ```
 
 ### -ActionPerProperty
-{{ Fill ActionPerProperty Description }}
+Specifies one or more values for action per property.
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 50
@@ -75,12 +60,13 @@ Accept wildcard characters: False
 ```
 
 ### -Active
-{{ Fill Active Description }}
+Specifies a Boolean value for active.
 
 ```yaml
 Type: Boolean
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 39
@@ -90,12 +76,13 @@ Accept wildcard characters: False
 ```
 
 ### -Authorization
-{{ Fill Authorization Description }}
+Specifies one or more values for authorization.
 
 ```yaml
 Type: IDictionary
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 0
@@ -105,27 +92,29 @@ Accept wildcard characters: False
 ```
 
 ### -BulkProcessing
-{{ Fill BulkProcessing Description }}
+Specifies the bulk processing switch.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -City
-{{ Fill City Description }}
+Specifies a value for city.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 14
@@ -135,12 +124,13 @@ Accept wildcard characters: False
 ```
 
 ### -CityHome
-{{ Fill CityHome Description }}
+Specifies a value for city home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 20
@@ -150,12 +140,13 @@ Accept wildcard characters: False
 ```
 
 ### -CompanyID
-{{ Fill CompanyID Description }}
+Specifies a value for company id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 28
@@ -164,28 +155,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -CostCenter
-{{ Fill CostCenter Description }}
+Specifies a value for cost center.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 42
@@ -195,12 +172,13 @@ Accept wildcard characters: False
 ```
 
 ### -Country
-{{ Fill Country Description }}
+Specifies a value for country.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 17
@@ -210,12 +188,13 @@ Accept wildcard characters: False
 ```
 
 ### -CountryHome
-{{ Fill CountryHome Description }}
+Specifies a value for country home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 22
@@ -225,12 +204,13 @@ Accept wildcard characters: False
 ```
 
 ### -Custom01
-{{ Fill Custom01 Description }}
+Specifies a value for custom01.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: CustomAttribute01
+Possible values:
 
 Required: False
 Position: 46
@@ -240,12 +220,13 @@ Accept wildcard characters: False
 ```
 
 ### -Custom02
-{{ Fill Custom02 Description }}
+Specifies a value for custom02.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: CustomAttribute02
+Possible values:
 
 Required: False
 Position: 47
@@ -255,12 +236,13 @@ Accept wildcard characters: False
 ```
 
 ### -Custom03
-{{ Fill Custom03 Description }}
+Specifies a value for custom03.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: CustomAttribute03
+Possible values:
 
 Required: False
 Position: 48
@@ -270,12 +252,13 @@ Accept wildcard characters: False
 ```
 
 ### -Department
-{{ Fill Department Description }}
+Specifies a value for department.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 40
@@ -285,12 +268,13 @@ Accept wildcard characters: False
 ```
 
 ### -Description
-{{ Fill Description Description }}
+Specifies a value for description.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 44
@@ -300,12 +284,13 @@ Accept wildcard characters: False
 ```
 
 ### -DirectoryID
-{{ Fill DirectoryID Description }}
+Specifies a value for directory id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 4
@@ -315,12 +300,13 @@ Accept wildcard characters: False
 ```
 
 ### -DisplayName
-{{ Fill DisplayName Description }}
+Specifies a value for display name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 8
@@ -330,12 +316,13 @@ Accept wildcard characters: False
 ```
 
 ### -Division
-{{ Fill Division Description }}
+Specifies a value for division.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 43
@@ -345,12 +332,13 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddress
-{{ Fill EmailAddress Description }}
+Specifies a value for email address.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 11
@@ -360,12 +348,13 @@ Accept wildcard characters: False
 ```
 
 ### -EmailAddressHome
-{{ Fill EmailAddressHome Description }}
+Specifies a value for email address home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 12
@@ -375,12 +364,13 @@ Accept wildcard characters: False
 ```
 
 ### -EmployeeNumber
-{{ Fill EmployeeNumber Description }}
+Specifies a value for employee number.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 41
@@ -390,12 +380,13 @@ Accept wildcard characters: False
 ```
 
 ### -ExternalId
-{{ Fill ExternalId Description }}
+Specifies a value for external id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 3
@@ -405,12 +396,13 @@ Accept wildcard characters: False
 ```
 
 ### -FamilyName
-{{ Fill FamilyName Description }}
+Specifies a value for family name.
 
 ```yaml
 Type: Object
-Parameter Sets: (All)
+Parameter Sets: __AllParameterSets
 Aliases: FirstName
+Possible values:
 
 Required: False
 Position: 6
@@ -420,12 +412,13 @@ Accept wildcard characters: False
 ```
 
 ### -GivenName
-{{ Fill GivenName Description }}
+Specifies a value for given name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 7
@@ -435,12 +428,13 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+Specifies a value for id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 2
@@ -450,12 +444,13 @@ Accept wildcard characters: False
 ```
 
 ### -Locale
-{{ Fill Locale Description }}
+Specifies a value for locale.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 30
@@ -465,12 +460,13 @@ Accept wildcard characters: False
 ```
 
 ### -ManagerDisplayName
-{{ Fill ManagerDisplayName Description }}
+Specifies a value for manager display name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 38
@@ -480,12 +476,13 @@ Accept wildcard characters: False
 ```
 
 ### -ManagerID
-{{ Fill ManagerID Description }}
+Specifies a value for manager id.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 35
@@ -495,12 +492,13 @@ Accept wildcard characters: False
 ```
 
 ### -ManagerReference
-{{ Fill ManagerReference Description }}
+Specifies a value for manager reference.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 37
@@ -510,12 +508,13 @@ Accept wildcard characters: False
 ```
 
 ### -ManagerUserName
-{{ Fill ManagerUserName Description }}
+Specifies a value for manager user name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 36
@@ -525,12 +524,13 @@ Accept wildcard characters: False
 ```
 
 ### -NickName
-{{ Fill NickName Description }}
+Specifies a value for nick name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 9
@@ -540,12 +540,13 @@ Accept wildcard characters: False
 ```
 
 ### -Password
-{{ Fill Password Description }}
+Specifies a value for password.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 34
@@ -555,12 +556,13 @@ Accept wildcard characters: False
 ```
 
 ### -PhoneNumberHome
-{{ Fill PhoneNumberHome Description }}
+Specifies a value for phone number home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 24
@@ -570,12 +572,13 @@ Accept wildcard characters: False
 ```
 
 ### -PhoneNumberMobile
-{{ Fill PhoneNumberMobile Description }}
+Specifies a value for phone number mobile.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 25
@@ -585,12 +588,13 @@ Accept wildcard characters: False
 ```
 
 ### -PhoneNumberWork
-{{ Fill PhoneNumberWork Description }}
+Specifies a value for phone number work.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 23
@@ -600,12 +604,13 @@ Accept wildcard characters: False
 ```
 
 ### -PhotoUrl
-{{ Fill PhotoUrl Description }}
+Specifies a value for photo url.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 26
@@ -615,12 +620,13 @@ Accept wildcard characters: False
 ```
 
 ### -PostalCode
-{{ Fill PostalCode Description }}
+Specifies a value for postal code.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 16
@@ -630,12 +636,13 @@ Accept wildcard characters: False
 ```
 
 ### -PostalCodeHome
-{{ Fill PostalCodeHome Description }}
+Specifies a value for postal code home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 19
@@ -645,12 +652,13 @@ Accept wildcard characters: False
 ```
 
 ### -PreferredLanguage
-{{ Fill PreferredLanguage Description }}
+Specifies a value for preferred language.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 29
@@ -660,12 +668,13 @@ Accept wildcard characters: False
 ```
 
 ### -ProfileUrl
-{{ Fill ProfileUrl Description }}
+Specifies a value for profile url.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 10
@@ -675,12 +684,13 @@ Accept wildcard characters: False
 ```
 
 ### -Region
-{{ Fill Region Description }}
+Specifies a value for region.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 15
@@ -690,12 +700,13 @@ Accept wildcard characters: False
 ```
 
 ### -RegionHome
-{{ Fill RegionHome Description }}
+Specifies a value for region home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 21
@@ -705,13 +716,13 @@ Accept wildcard characters: False
 ```
 
 ### -Role
-{{ Fill Role Description }}
+Specifies a value for role.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: admin, user, contact
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: admin, user, contact
 
 Required: False
 Position: 45
@@ -721,12 +732,13 @@ Accept wildcard characters: False
 ```
 
 ### -SearchUserName
-{{ Fill SearchUserName Description }}
+Specifies a value for search user name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 1
@@ -736,12 +748,13 @@ Accept wildcard characters: False
 ```
 
 ### -StreetAddress
-{{ Fill StreetAddress Description }}
+Specifies a value for street address.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 13
@@ -751,12 +764,13 @@ Accept wildcard characters: False
 ```
 
 ### -StreetAddressHome
-{{ Fill StreetAddressHome Description }}
+Specifies a value for street address home.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 18
@@ -766,27 +780,29 @@ Accept wildcard characters: False
 ```
 
 ### -Suppress
-{{ Fill Suppress Description }}
+Specifies the suppress switch.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
-Position: Named
+Position: named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -ThumbnailUrl
-{{ Fill ThumbnailUrl Description }}
+Specifies a value for thumbnail url.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 27
@@ -796,12 +812,13 @@ Accept wildcard characters: False
 ```
 
 ### -TimeZone
-{{ Fill TimeZone Description }}
+Specifies a value for time zone.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 31
@@ -811,12 +828,13 @@ Accept wildcard characters: False
 ```
 
 ### -Title
-{{ Fill Title Description }}
+Specifies a value for title.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 32
@@ -826,12 +844,13 @@ Accept wildcard characters: False
 ```
 
 ### -UserName
-{{ Fill UserName Description }}
+Specifies a value for user name.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 5
@@ -841,31 +860,16 @@ Accept wildcard characters: False
 ```
 
 ### -UserType
-{{ Fill UserType Description }}
+Specifies a value for user type.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values:
 
 Required: False
 Position: 33
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -876,11 +880,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+- `None`
 
 ## OUTPUTS
 
-### System.Object
-## NOTES
+- `System.Object`
 
 ## RELATED LINKS
+
+- None

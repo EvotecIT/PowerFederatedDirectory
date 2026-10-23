@@ -6,10 +6,12 @@ Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -Force
 $module = Get-Module $ModuleName
 & $module {
     $script:NetworkCalls = 0
+    $script:UserQueries = [Collections.Generic.List[string]]::new()
     function script:Invoke-RestMethod {
         [CmdletBinding()] param($Method, $Body, $Uri, $Headers, $ContentType)
         $script:NetworkCalls++
         if ($Method -eq 'Get') {
+            $script:UserQueries.Add([string] $Uri)
             $script:GetCalls++
             if ($script:FailLaterPage -and $script:GetCalls -eq 2) { throw 'synthetic-later-page-failure' }
             $start = [int] [regex]::Match([string] $Uri, 'startIndex=(\d+)').Groups[1].Value
@@ -32,6 +34,14 @@ $module = Get-Module $ModuleName
     $script:FailLaterPage = $false
     $users = @(Get-FederatedDirectoryUser -Authorization $connection -Native -ErrorAction Stop)
     if ($users.Count -ne 1001 -or $users[-1].id -ne 'user-1001' -or $script:GetCalls -ne 3) { throw 'Packaged directory pagination was incomplete' }
+    $script:GetCalls = 0
+    $script:UserQueries.Clear()
+    $users = @(Get-FederatedDirectoryUser -Authorization $connection -EmployeeNumber 'EMP"\42' -Native -ErrorAction Stop)
+    if ($users.Count -ne 1001) { throw 'Packaged employee-number retrieval was incomplete' }
+    foreach ($query in $script:UserQueries) {
+        $filter = [Net.WebUtility]::UrlDecode(([regex]::Match($query, '[?&]filter=([^&]+)')).Groups[1].Value)
+        if ($filter -ne 'urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber eq "EMP\"\\42"') { throw 'Packaged employee-number filter was not preserved or escaped' }
+    }
     $script:GetCalls = 0
     $script:FailLaterPage = $true
     $failed = $false

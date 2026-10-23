@@ -3,7 +3,12 @@ $ErrorActionPreference = 'Stop'
 if (Get-Module PowerFederatedDirectory) { throw 'Run package isolation checks in a fresh PowerShell process.' }
 $originalPath = $env:PSModulePath
 $originalJobs = @(Get-Job | Select-Object -ExpandProperty Id)
-Import-Module (Join-Path $ModuleRoot 'PowerFederatedDirectory.psd1') -Force
+try {
+    $env:PSModulePath = (Split-Path -Parent $ModuleRoot) + [IO.Path]::PathSeparator + $originalPath
+    Import-Module (Join-Path $ModuleRoot 'PowerFederatedDirectory.psd1') -Force
+} finally {
+    $env:PSModulePath = $originalPath
+}
 $originalModule = Get-Module PowerFederatedDirectory
 $marker = [guid]::NewGuid().ToString()
 & $originalModule { param($value) $script:PackageIsolationMarker = $value } $marker
